@@ -11,7 +11,7 @@ namespace RollABall
         {
             var playerStruct = playerData.playerStruct;
 
-            var spawnedPlayer = Object.Instantiate(playerStruct.PlayerGameObject, gameContext.PlayerSpawn ,Quaternion.identity);
+            var spawnedPlayer = Object.Instantiate(playerStruct.PlayerGameObject, gameContext.PlayerSpawn, Quaternion.identity);
             playerStruct.PlayerGameObject = spawnedPlayer;
 
             var playerModel = new PlayerModel(playerStruct);

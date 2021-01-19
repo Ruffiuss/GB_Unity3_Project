@@ -3,7 +3,7 @@
 
 namespace RollABall
 {
-    internal sealed class PlayerModel : IUpdatable
+    internal sealed class PlayerModel : IUpdatable, IDegradable, IImprovable
     {
         #region Fields
 

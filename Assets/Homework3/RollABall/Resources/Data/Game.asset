@@ -15,3 +15,4 @@ MonoBehaviour:
   gameStruct:
     Level: {fileID: 11400000, guid: 8271c19e76cd1eb4bb7d2138303c5be9, type: 2}
     Player: {fileID: 11400000, guid: d42dacb504492dd4e87566788937ea16, type: 2}
+    Interactable: {fileID: 11400000, guid: 98dd31338d4c84a489083aaf09989754, type: 2}

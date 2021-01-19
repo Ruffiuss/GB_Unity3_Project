@@ -10,7 +10,7 @@
   <Class Name="RollABall.GameContext">
     <Position X="0.5" Y="6" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>BAAAgAAAIAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Homework3\RollABall\Scripts\GameContext.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -29,7 +29,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="RollABall.InitializeController">
-    <Position X="0.5" Y="8.25" Width="2" />
+    <Position X="0.5" Y="8.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Homework3\RollABall\Scripts\InitializeController.cs</FileName>
@@ -64,7 +64,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="RollABall.PlayerController">
-    <Position X="5.5" Y="7" Width="1.5" />
+    <Position X="5.5" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Homework3\RollABall\Scripts\Player\PlayerController.cs</FileName>
@@ -85,12 +85,26 @@
     </TypeIdentifier>
   </Class>
   <Class Name="RollABall.PlayerModel" BaseTypeListCollapsed="true">
-    <Position X="5.5" Y="4.75" Width="1.75" />
+    <Position X="5.5" Y="5.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>IAAAAAAAAAACAEAAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Homework3\RollABall\Scripts\Player\PlayerModel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.179" />
+  </Class>
+  <Class Name="RollABall.InteractableData">
+    <Position X="9.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Homework3\RollABall\Scripts\InteractableItems\InteractableData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RollABall.InteractableInitializator">
+    <Position X="9.5" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Homework3\RollABall\Scripts\InteractableItems\InteractableInitializator.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Struct Name="RollABall.EnemyStruct">
     <Position X="7.5" Y="0.5" Width="1.75" />
@@ -120,18 +134,67 @@
       <FileName>Assets\Homework3\RollABall\Scripts\Player\PlayerStruct.cs</FileName>
     </TypeIdentifier>
   </Struct>
+  <Struct Name="RollABall.InteractableStruct">
+    <Position X="9.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Assets\Homework3\RollABall\Scripts\InteractableItems\InteractableStruct.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
   <Interface Name="RollABall.IUpdatable">
-    <Position X="9.75" Y="0.5" Width="1.5" />
+    <Position X="13.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Assets\Homework3\RollABall\Scripts\IUpdatable.cs</FileName>
+      <FileName>Assets\Homework3\RollABall\Scripts\Interfaces\IUpdatable.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="RollABall.IInteractable">
-    <Position X="9.75" Y="1.75" Width="1.5" />
+    <Position X="13.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AEAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Assets\Homework3\RollABall\Scripts\IInteractable.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Homework3\RollABall\Scripts\Interfaces\IInteractable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RollABall.IControllable">
+    <Position X="16.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Homework3\RollABall\Scripts\Interfaces\IControllable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RollABall.IDegradable">
+    <Position X="13.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Homework3\RollABall\Scripts\Interfaces\IDegradable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RollABall.IDegrader">
+    <Position X="13.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Homework3\RollABall\Scripts\Interfaces\IDegrader.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RollABall.IImprovable">
+    <Position X="15" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Homework3\RollABall\Scripts\Interfaces\IImprovable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RollABall.IImprover">
+    <Position X="15" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Homework3\RollABall\Scripts\Interfaces\IImprover.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RollABall.IModelable">
+    <Position X="16.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Homework3\RollABall\Scripts\Interfaces\IModelable.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />
