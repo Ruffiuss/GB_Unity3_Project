@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="RollABall.EnemyData">
+    <Position X="7.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Homework3\RollABall\Scripts\Enemy\EnemyData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RollABall.GameContext">
+    <Position X="0.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Homework3\RollABall\Scripts\GameContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RollABall.GameController">
+    <Position X="0.5" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAACAACAAAAAAAQAEAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Homework3\RollABall\Scripts\GameController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RollABall.GameData">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>Assets\Homework3\RollABall\Scripts\GameData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RollABall.InitializeController">
+    <Position X="0.5" Y="8.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Homework3\RollABall\Scripts\InitializeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RollABall.LevelController">
+    <Position X="3.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Homework3\RollABall\Scripts\Level\LevelController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RollABall.LevelData">
+    <Position X="3.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>Assets\Homework3\RollABall\Scripts\Level\LevelData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RollABall.LevelInitializator">
+    <Position X="3.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Homework3\RollABall\Scripts\Level\LevelInitializator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RollABall.LevelModel">
+    <Position X="3.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Homework3\RollABall\Scripts\Level\LevelModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RollABall.PlayerController">
+    <Position X="5.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Homework3\RollABall\Scripts\Player\PlayerController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RollABall.PlayerData">
+    <Position X="5.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Homework3\RollABall\Scripts\Player\PlayerData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RollABall.PlayerInitializator">
+    <Position X="5.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Homework3\RollABall\Scripts\Player\PlayerInitializator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RollABall.PlayerModel" BaseTypeListCollapsed="true">
+    <Position X="5.5" Y="4.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAACAEAAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Homework3\RollABall\Scripts\Player\PlayerModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.179" />
+  </Class>
+  <Struct Name="RollABall.EnemyStruct">
+    <Position X="7.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Assets\Homework3\RollABall\Scripts\Enemy\EnemyStruct.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="RollABall.GameStruct">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAA=</HashCode>
+      <FileName>Assets\Homework3\RollABall\Scripts\GameStruct.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="RollABall.LevelStruct">
+    <Position X="3.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAIAAAAAAAAAwAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Homework3\RollABall\Scripts\Level\LevelStruct.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="RollABall.PlayerStruct">
+    <Position X="5.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Homework3\RollABall\Scripts\Player\PlayerStruct.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="RollABall.IUpdatable">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Homework3\RollABall\Scripts\IUpdatable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RollABall.IInteractable">
+    <Position X="9.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Homework3\RollABall\Scripts\IInteractable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
