@@ -9,6 +9,5 @@ namespace RollABall
     {
         public LevelData Level;
         public PlayerData Player;
-        public InteractableData Interactable;
     }
 }

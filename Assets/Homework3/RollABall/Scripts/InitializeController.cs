@@ -8,7 +8,6 @@
         {
             new LevelInitializator(gameController, gameContext, gameData.gameStruct.Level);
             new PlayerInitializator(gameController, gameContext, gameData.gameStruct.Player);
-            new InteractableInitializator(gameController, gameContext, gameData.gameStruct.Interactable);
         }
 
         #endregion
