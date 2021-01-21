@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 
 namespace RollABall
@@ -7,8 +8,9 @@ namespace RollABall
     {
         #region Fields
 
+        private List<IControllable> _iControllers = new List<IControllable>();
+        private List<Vector3> _interactableSpawns;
         private Vector3 _playerSpawn = Vector3.zero;
-        private Vector3[] _interactableSpawns;
 
         #endregion
 
@@ -27,7 +29,7 @@ namespace RollABall
             }
         }
 
-        internal Vector3[] InteractableSpawns
+        internal List<Vector3> InteractableSpawns
         {
             get
             {
@@ -47,11 +49,21 @@ namespace RollABall
 
         internal void SetInteractableSpawns(Vector3[] interactableSpawns)
         {
-            _interactableSpawns = new Vector3[interactableSpawns.Length];
-            for (int i = 0; i < _interactableSpawns.Length; i++)
+            _interactableSpawns = new List<Vector3>();
+            for (int i = 0; i < interactableSpawns.Length; i++)
             {
-                _interactableSpawns[i] = interactableSpawns[i];
+                _interactableSpawns.Add(interactableSpawns[i]);
             }
+        }
+
+        internal void AddController<T>(T controller) where T : IControllable
+        {
+            _iControllers.Add(controller);
+        }
+
+        internal void RemoveController<T>(T controller) where T : IControllable
+        {
+            _iControllers.Remove(controller);
         }
 
         #endregion

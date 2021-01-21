@@ -12,19 +12,47 @@ namespace RollABall
         {
             var interactableStruct = interactableData.InteractableStruct;
 
-            GameObject spawnedInteracatble = null;
-            var interactableCount = gameContext.InteractableSpawns.Length;
+            interactableStruct.InteractableSpawn = gameContext.InteractableSpawns;
+
             interactableStruct.SpawnedInteractable = new List<GameObject>();
 
-            for (var i = 0; i < interactableCount; i++)
+            var interactableCount = gameContext.InteractableSpawns.Count;
+            var interactableSeter = Divider(interactableCount);
+
+            interactableStruct.InteractableMap = new Dictionary<ISubInteractable, int>();
+
+            foreach (var item in interactableStruct.InteractableTypes)
             {
-                spawnedInteracatble = Object.Instantiate(interactableStruct.InteractableGameObject, gameContext.InteractableSpawns[i], Quaternion.identity);
-                interactableStruct.SpawnedInteractable.Add(spawnedInteracatble);
+                interactableStruct.InteractableMap[(ISubInteractable)item] = interactableSeter;
+                interactableCount -= interactableSeter;
+                interactableSeter = Divider(interactableCount);
             }
 
-            var interactableModel = new InteractableSimpleBuffModel(interactableStruct);
+            foreach (var item in interactableStruct.InteractableMap.Keys)
+            {
+                for (int i = 0; i < interactableStruct.InteractableMap[item]; i++)
+                {
+                    var subInitializator = new SubInteractableInitializator(item, interactableStruct.InteractableSpawn[0]);
+                    interactableStruct.SpawnedInteractable.Add(subInitializator._spawnedObject);
+                    interactableStruct.InteractableSpawn.RemoveAt(0);
+                }
 
-            gameController.AddIUpdatable(interactableModel);
+            }
+
+            var interactableController = new InteractableController(new InteractableModel(interactableStruct));
+
+            gameContext.AddController(interactableController);
+            gameController.AddIUpdatable(interactableController);
+        }
+
+        #endregion
+
+
+        #region Methods
+
+        private int Divider(int value)
+        {
+            return value / 2;
         }
 
         #endregion
