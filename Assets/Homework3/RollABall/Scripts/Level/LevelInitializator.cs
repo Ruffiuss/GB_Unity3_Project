@@ -13,7 +13,6 @@ namespace RollABall
 
             var spawnedLevel = Object.Instantiate(levelStruct.LevelGameObject, Vector3.zero, Quaternion.identity);
             levelStruct.LevelGameObject = spawnedLevel;
-
             
             for (int i = 0; i < spawnedLevel.transform.childCount; i++)
             {
@@ -33,7 +32,7 @@ namespace RollABall
                     default:
                         break;
                 }
-            }            
+            }
 
             var levelModel = new LevelModel(levelStruct);
 

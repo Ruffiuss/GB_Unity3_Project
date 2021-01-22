@@ -10,8 +10,9 @@ namespace RollABall
         internal PlayerInitializator(GameController gameController, GameContext gameContext, PlayerData playerData)
         {
             var playerStruct = playerData.playerStruct;
-
+          
             var spawnedPlayer = Object.Instantiate(playerStruct.PlayerGameObject, gameContext.PlayerSpawn, Quaternion.identity);
+
             playerStruct.PlayerGameObject = spawnedPlayer;
 
             var playerModel = new PlayerModel(playerStruct);
