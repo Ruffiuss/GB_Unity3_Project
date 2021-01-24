@@ -5,7 +5,7 @@ using System;
 namespace RollABall
 {
     [CreateAssetMenu(fileName = "Enemy", menuName = "Data/Enemy")]
-    public class EnemyData : ScriptableObject
+    public sealed class EnemyData : ScriptableObject
     {
         #region Fields
 

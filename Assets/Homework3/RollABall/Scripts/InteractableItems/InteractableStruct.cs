@@ -10,9 +10,10 @@ namespace RollABall
     {
         #region Fields
 
-        public GameObject InteractableGameObject;
         public List<GameObject> SpawnedInteractable;
-        public Vector3[] InteractableSpawn;
+        public List<ScriptableObject> InteractableTypes;
+        public Dictionary<ISubInteractable, int> InteractableMap;
+        public List<Vector3> InteractableSpawn;
 
         #endregion
     }
