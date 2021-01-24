@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: SimpleDebuff
   m_EditorClassIdentifier: 
   SimpleDebuffStruct:
-    SimpleDebuffView: {fileID: 2148028573284940339, guid: ffd35ee841d7b8f46ad1df3e9ccc5452,
+    SimpleDebuffGameObject: {fileID: 2148028573284940339, guid: ffd35ee841d7b8f46ad1df3e9ccc5452,
       type: 3}

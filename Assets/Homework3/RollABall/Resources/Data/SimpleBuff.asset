@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: SimpleBuff
   m_EditorClassIdentifier: 
   SimpleBuffStruct:
-    SimpleBuffView: {fileID: 2148028573284940339, guid: 49d402848bf8d1b4583d73136ac59b5e,
+    SimpleBuffGameObject: {fileID: 2148028573284940339, guid: 49d402848bf8d1b4583d73136ac59b5e,
       type: 3}
+    SpeedBuff: 20
