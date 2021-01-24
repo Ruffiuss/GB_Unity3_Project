@@ -15,3 +15,4 @@ MonoBehaviour:
   playerStruct:
     PlayerGameObject: {fileID: 5743549621447191545, guid: 2010e59724281654d9aa466e7295e95c,
       type: 3}
+    Speed: 10
