@@ -11,14 +11,12 @@ namespace RollABall
         {
             var playerStruct = playerData.playerStruct;
 
-            var spawnedPlayer = Object.Instantiate(playerStruct.PlayerGameObject, gameContext.PlayerSpawn ,Quaternion.identity);
+            var spawnedPlayer = Object.Instantiate(playerStruct.PlayerGameObject, gameContext.PlayerSpawn, Quaternion.identity);
             playerStruct.PlayerGameObject = spawnedPlayer;
 
-            var playerModel = new PlayerModel(playerStruct);
+            var playerController = new PlayerController(new PlayerModel(playerStruct));
 
-            new PlayerController(playerModel);
-
-            gameController.AddIUpdatable(playerModel);
+            gameController.AddIFixedUpdatable(playerController);
         }
 
         #endregion

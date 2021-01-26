@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using static UnityEngine.Debug;
 
 
 namespace RollABall
@@ -11,6 +12,7 @@ namespace RollABall
         [SerializeField] GameData GameData;
         
         private List<IUpdatable> _iUpdatables = new List<IUpdatable>();
+        private List<IFixedUpdatable> _iFixedUpdatables = new List<IFixedUpdatable>();
 
         #endregion
 
@@ -30,6 +32,13 @@ namespace RollABall
                 item.UpdateTick();
             }
         }
+        private void FixedUpdate()
+        {
+            foreach (var item in _iFixedUpdatables)
+            {
+                item.FixedUpdateTick();
+            }
+        }
 
         #endregion
 
@@ -44,6 +53,16 @@ namespace RollABall
         internal void RemoveIUpdatable(IUpdatable updatable)
         {
             _iUpdatables.Remove(updatable);
+        }
+
+        internal void AddIFixedUpdatable(IFixedUpdatable updatable)
+        {
+            _iFixedUpdatables.Add(updatable);
+        }
+
+        internal void RemoveIFixedUpdatable(IFixedUpdatable updatable)
+        {
+            _iFixedUpdatables.Remove(updatable);
         }
 
         #endregion

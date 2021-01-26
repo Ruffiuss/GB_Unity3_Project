@@ -11,6 +11,8 @@ namespace RollABall
 
         public GameObject PlayerGameObject;
 
+        public float Speed;
+
         #endregion
     }
 }

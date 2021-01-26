@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d50c72c5f8fdf5f44a54550f5397c4c5, type: 3}
-  m_Name: Player
+  m_Script: {fileID: 11500000, guid: 443537ab0ae4b9e4b92f934a7fc22558, type: 3}
+  m_Name: SimpleDebuff
   m_EditorClassIdentifier: 
-  playerStruct:
-    PlayerGameObject: {fileID: 5743549621447191545, guid: 2010e59724281654d9aa466e7295e95c,
+  SimpleDebuffStruct:
+    SimpleDebuffGameObject: {fileID: 2148028573284940339, guid: ffd35ee841d7b8f46ad1df3e9ccc5452,
       type: 3}
-    Speed: 10

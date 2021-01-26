@@ -3,12 +3,13 @@
 
 namespace RollABall
 {
-    internal sealed class PlayerModel : IUpdatable
+    internal sealed class PlayerModel
     {
         #region Fields
 
-        private Rigidbody _rigidBody;
-        private PlayerStruct _playerStruct;
+        internal PlayerStruct _playerStruct;
+
+        internal Rigidbody _rigidBody;
 
         #endregion
 
@@ -30,13 +31,6 @@ namespace RollABall
         private void DefineComponets()
         {
             _rigidBody = _playerStruct.PlayerGameObject.GetComponentInChildren<Rigidbody>();
-        }
-
-        public void UpdateTick()
-        {
-            _playerStruct.PlayerGameObject.transform.position +=
-                 _playerStruct.PlayerGameObject.transform.forward *
-                5.0f * Time.deltaTime;
         }
 
         #endregion
