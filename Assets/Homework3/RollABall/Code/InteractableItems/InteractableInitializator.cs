@@ -6,47 +6,58 @@ namespace RollABall
 {
     internal sealed class InteractableInitializator
     {
+        #region Fields
+
+        private InteractableController _interactableController;
+        private readonly InteractableData _interactableData;
+
+        #endregion
+
+
         #region ClassLifeCycles
 
-        internal InteractableInitializator(GameController gameController, GameContext gameContext, InteractableData interactableData)
+        internal InteractableInitializator(GameContext gameContext, InteractableData interactableData)
         {
-            var interactableStruct = interactableData.InteractableStruct;
+            interactableData.InteractableSpawn = gameContext.InteractableSpawns;
 
-            interactableStruct.InteractableSpawn = gameContext.InteractableSpawns;
-
-            interactableStruct.SpawnedInteractable = new List<GameObject>();
+            interactableData.SpawnedInteractable = new List<GameObject>();
 
             var interactableCount = gameContext.InteractableSpawns.Count;
             var interactableSeter = Divider(interactableCount);
 
-            interactableStruct.InteractableMap = new Dictionary<ISubInteractable, int>();
-
-            foreach (var item in interactableStruct.InteractableTypes)
+            interactableData.InteractableMap = new Dictionary<ISubInteractable, int>();
+            foreach (var type in interactableData.InteractableTypes)
             {
-                interactableStruct.InteractableMap[(ISubInteractable)item] = interactableSeter;
+                interactableData.InteractableMap[(ISubInteractable)type] = interactableSeter;
                 interactableCount -= interactableSeter;
                 interactableSeter = Divider(interactableCount);
             }
 
-            foreach (var item in interactableStruct.InteractableMap.Keys)
+            foreach (var key in interactableData.InteractableMap.Keys)
             {
-                for (int i = 0; i < interactableStruct.InteractableMap[item]; i++)
+                for (int i = 0; i < interactableData.InteractableMap[key]; i++)
                 {
-                    var subInitializator = new SubInteractableInitializator(item, interactableStruct.InteractableSpawn[0]);
-                    interactableStruct.SpawnedInteractable.Add(subInitializator._spawnedObject);
-                    interactableStruct.InteractableSpawn.RemoveAt(0);
+                    var subInitializator = new SubInteractableInitializator(key, interactableData.InteractableSpawn[0]);
+                    interactableData.SpawnedInteractable.Add(subInitializator._spawnedObject);
+                    interactableData.InteractableSpawn.RemoveAt(0);
                 }
 
             }
 
-            var interactableController = new InteractableController(new InteractableModel(interactableStruct));
-            foreach (var item in interactableStruct.SpawnedInteractable)
+            interactableData.UpgradableControllers = new List<IUpgradable>();
+            foreach (var controller in gameContext.GetControllers())
             {
-                interactableController.SubsrcibeView(item.GetComponent<IImprover>());
+                if (controller is IUpgradable)
+                {
+                    interactableData.UpgradableControllers.Add((IUpgradable)controller);
+                }
             }
 
-            gameContext.AddController(interactableController);
-            gameController.AddIUpdatable(interactableController);
+            _interactableController = new InteractableController(interactableData);
+            foreach (var item in interactableData.SpawnedInteractable)
+            {
+                _interactableController.SubsrcibeView(item.GetComponent<IInteractable>());
+            }
         }
 
         #endregion
@@ -57,6 +68,11 @@ namespace RollABall
         private int Divider(int value)
         {
             return value / 2;
+        }
+
+        internal InteractableController GetController()
+        {
+            return _interactableController;
         }
 
         #endregion

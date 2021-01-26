@@ -1,10 +1,15 @@
-﻿namespace RollABall
-{
-    internal interface IImprover : IInteractable
-    {
-        #region Methods
+﻿using System;
+using UnityEngine;
 
-        void Boost<T>(T improvable) where T : IImprovable;
+
+namespace RollABall
+{
+    public interface IImprover : IInteractable
+    {
+        #region Properties
+
+        event Action<Collider> TriggerOnEnter;
+
         #endregion
     }
 }

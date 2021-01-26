@@ -3,7 +3,7 @@
 
 namespace RollABall
 {
-    public interface ISubInteractable
+    public interface ISubInteractable : IInteractable
     {
         GameObject SubInteractableGameObject { get; }
     }

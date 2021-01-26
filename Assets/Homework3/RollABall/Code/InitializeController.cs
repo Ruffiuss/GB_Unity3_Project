@@ -6,9 +6,14 @@
 
         internal InitializeController(GameController gameController, GameContext gameContext, GameData gameData)
         {
-            new LevelInitializator(gameController, gameContext, gameData.gameStruct.Level);
-            new PlayerInitializator(gameController, gameContext, gameData.gameStruct.Player);
-            new InteractableInitializator(gameController, gameContext, gameData.gameStruct.Interactable);
+            var levelInitialized = new LevelInitializator(gameController, gameContext, gameData.gameStruct.Level);
+
+            var playerInitialized = new PlayerInitializator(gameController, gameContext, gameData.gameStruct.Player);
+            gameContext.AddController(playerInitialized.GetPlayer());
+
+            var interactableInitialized = new InteractableInitializator(gameContext, gameData.gameStruct.Interactable);
+            gameContext.AddController(interactableInitialized.GetController());
+            gameController.AddIUpdatable(interactableInitialized.GetController());
         }
 
         #endregion

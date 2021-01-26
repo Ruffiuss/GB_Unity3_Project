@@ -1,6 +1,6 @@
 ﻿namespace RollABall
 { 
-    public interface IImprovable
+    public interface IImprovable : IUpgradable
     {
         #region Methods
 
