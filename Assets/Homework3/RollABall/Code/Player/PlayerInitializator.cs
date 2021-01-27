@@ -14,16 +14,13 @@ namespace RollABall
 
         #region ClassLifeCycles
 
-        internal PlayerInitializator(Transform playerSpawn, PlayerData playerData) // changed
+        internal PlayerInitializator(Transform playerSpawn, PlayerData playerData)
         {
             var playerStruct = playerData.playerStruct;
 
-            var spawnedPlayer = Object.Instantiate(playerStruct.PlayerGameObject, playerSpawn, Quaternion.identity); // changed
-            playerStruct.PlayerGameObject = spawnedPlayer;
+            var spawnedPlayer = Object.Instantiate(playerStruct.PlayerGameObject, playerSpawn, Quaternion.identity);
 
             _playerController = new PlayerController(new PlayerModel(playerStruct));
-
-            // gameController.AddIFixedUpdatable(_playerController); //delete
         }
 
         #endregion

@@ -16,13 +16,13 @@ namespace RollABall
 
         #region ClassLifeCycles
 
-        internal InteractableInitializator(List<Vector3> interactableSpawns, IUpgradable upgradable, InteractableData interactableData) // changed
+        internal InteractableInitializator(List<Vector3> interactableSpawns, IUpgradable upgradable, InteractableData interactableData)
         {
-            interactableData.InteractableSpawn = interactableSpawns; // changed
+            interactableData.InteractableSpawn = interactableSpawns;
 
             interactableData.SpawnedInteractable = new List<GameObject>();
 
-            var interactableCount = interactableSpawns.Count; // changed
+            var interactableCount = interactableSpawns.Count;
             var interactableSeter = Divider(interactableCount);
 
             interactableData.InteractableMap = new Dictionary<ISubInteractable, int>();
@@ -44,10 +44,9 @@ namespace RollABall
 
             }
 
-            // interactableData.UpgradableControllers = new List<IUpgradable>(); // delete
-            foreach (var controller in upgradable) // changed
+            foreach (var controller in upgradable)
             {
-                interactableData.UpgradableControllers.Add(controller); // changed
+                interactableData.UpgradableControllers.Add(controller);
             }
 
             _interactableController = new InteractableController(interactableData);
