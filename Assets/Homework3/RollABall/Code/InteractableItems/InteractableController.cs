@@ -34,7 +34,7 @@ namespace RollABall
 
         #region Methods
 
-        public void UpdateTick()
+        public void UpdateTick(float deltaTime)
         {
             foreach (var item in _interactableData.SpawnedInteractable)
             {

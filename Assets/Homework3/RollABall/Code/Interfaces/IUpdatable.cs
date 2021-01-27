@@ -4,7 +4,7 @@
     {
         #region Methods
 
-        void UpdateTick();
+        void UpdateTick(float deltaTime);
 
         #endregion
     }
