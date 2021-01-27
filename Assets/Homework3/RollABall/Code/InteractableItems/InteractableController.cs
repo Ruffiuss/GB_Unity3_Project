@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace RollABall
 {
-    internal sealed class InteractableController : IControllable, IUpdatable
+    internal sealed class InteractableController : IUpdatable
     {
         #region Fields
 
@@ -16,8 +16,8 @@ namespace RollABall
         private float _pulsingValue = 2.1f;
         private float _pulsingMin = 2.0f;
         private float _pulsingMax = 4.0f;
-        private const float SMOOTH = 0.03f;
         private bool _isGrow = true;
+        private const float SMOOTH = 0.03f;
 
         #endregion
 
@@ -34,7 +34,7 @@ namespace RollABall
 
         #region Methods
 
-        public void UpdateTick()
+        public void UpdateTick(float deltaTime)
         {
             foreach (var item in _interactableData.SpawnedInteractable)
             {
