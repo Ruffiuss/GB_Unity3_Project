@@ -1,0 +1,23 @@
+﻿using UnityEngine;
+
+
+namespace RollABall
+{
+    [CreateAssetMenu(fileName = "Player", menuName = "Data/Player")]
+    public sealed class PlayerData : ScriptableObject
+    {
+        #region Fields
+
+    	[SerializableField, Range(0, 100)] private float _speed;
+		public GameObject PlayerProvider;
+
+        #endregion
+
+
+        #region Properties
+
+    	public float Speed => _speed;
+
+    	#endregion
+    }
+}
