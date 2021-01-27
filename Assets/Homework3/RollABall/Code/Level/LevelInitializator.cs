@@ -5,9 +5,18 @@ namespace RollABall
 {
     internal sealed class LevelInitializator
     {
+        //added
+        #region Fields
+
+        private readonly Transform _playerSpawn;
+        private readonly List<Vector3> _interactableSpawns;
+
+        #endregion
+        //added
+
         #region ClassLifeCycles
 
-        internal LevelInitializator(GameController gameController, GameContext gameContext, LevelData levelData)
+        internal LevelInitializator(LevelData levelData) // changed
         {
             var levelStruct = levelData.LevelStuct;
 
@@ -21,13 +30,15 @@ namespace RollABall
                 switch (gameObject.tag)
                 {
                     case "Respawn":
-                        levelStruct.PlayerSpawn = gameObject.transform.position;
+                        _playerSpawn = levelStruct.PlayerSpawn = gameObject.transform.position; //changed
                         break;
                     case "Interactable":
-                        levelStruct.InteractablePositions = new Vector3[gameObject.transform.childCount];
+                        _interactableSpawns = new List<Vector3>(); //added
+                        // levelStruct.InteractablePositions = new Vector3[gameObject.transform.childCount]; //delete
                         for (int i2 = 0; i2 < gameObject.transform.childCount; i2++)
                         {
-                            levelStruct.InteractablePositions[i2] = gameObject.transform.GetChild(i2).transform.position;
+                            // levelStruct.InteractablePositions[i2] = gameObject.transform.GetChild(i2).transform.position; // delete
+                            _interactableSpawns.Add(gameObject.transform.GetChild(i2).transform.position); // added
                         }
                         break;
                     default:
@@ -39,10 +50,26 @@ namespace RollABall
 
             new LevelController(levelModel);
 
-            gameContext.SetPlayerSpawn(levelStruct.PlayerSpawn);
-            gameContext.SetInteractableSpawns(levelStruct.InteractablePositions);
+            // gameContext.SetPlayerSpawn(levelStruct.PlayerSpawn); //delete
+            // gameContext.SetInteractableSpawns(levelStruct.InteractablePositions); //delete
         }
 
         #endregion
+
+        // added
+        #region Methods
+
+        internal Transform GetPlayerSpawn()
+        {
+            return _playerSpawn;
+        }
+
+        internal List<Vector3> GetInteractableSpawns()
+        {
+            return _interactableSpawns;
+        }
+
+        #endregion
+        // added
     }
 }

@@ -5,14 +5,17 @@ using static UnityEngine.Debug;
 
 namespace RollABall
 {
-    internal class GameController : MonoBehaviour
+    internal sealed class GameController : MonoBehaviour //changed
     {
         #region Fields
 
-        [SerializeField] GameData GameData;
-        
-        private List<IUpdatable> _iUpdatables = new List<IUpdatable>();
-        private List<IFixedUpdatable> _iFixedUpdatables = new List<IFixedUpdatable>();
+        [SerializeField] private GameData _gameData; //changed
+        private Controllers _controllers; //added
+
+        private float _deltaTime;
+
+        //private List<IUpdatable> _iUpdatables = new List<IUpdatable>(); //delete
+        //private List<IFixedUpdatable> _iFixedUpdatables = new List<IFixedUpdatable>(); //delete
 
         #endregion
 
@@ -21,23 +24,26 @@ namespace RollABall
 
         private void Start()
         {
-            GameContext gameContext = new GameContext();
-            new InitializeController(this, gameContext, GameData);
+        	_controllers = new Controllers();
+            // GameContext gameContext = new GameContext(); // delete
+            new InitializeController(_controllers, _gameData);
+            _controllers.Initialization();
         }
 
         private void Update()
         {
-            foreach (var item in _iUpdatables)
-            {
-                item.UpdateTick();
-            }
+        	_deltaTime = Time.deltaTime;
+            _controllers.UpdateTick(_deltaTime);
         }
         private void FixedUpdate()
         {
-            foreach (var item in _iFixedUpdatables)
-            {
-                item.FixedUpdateTick();
-            }
+        	_deltaTime = Time.deltaTime;
+            _controllers.FixedUpdateTick(_deltaTime);
+        }
+
+        private void OnDestroy()
+        {
+        	//_controllers.Cleanup(); //realize Cleanup Interface and methods in Controllers
         }
 
         #endregion
@@ -45,25 +51,26 @@ namespace RollABall
 
         #region Methods
 
-        internal void AddIUpdatable(IUpdatable updatable)
-        {
-            _iUpdatables.Add(updatable);
-        }
+        // TO DELETE
+        // internal void AddIUpdatable(IUpdatable updatable)
+        // {
+        //     _iUpdatables.Add(updatable);
+        // }
 
-        internal void RemoveIUpdatable(IUpdatable updatable)
-        {
-            _iUpdatables.Remove(updatable);
-        }
+        // internal void RemoveIUpdatable(IUpdatable updatable)
+        // {
+        //     _iUpdatables.Remove(updatable);
+        // }
 
-        internal void AddIFixedUpdatable(IFixedUpdatable updatable)
-        {
-            _iFixedUpdatables.Add(updatable);
-        }
+        // internal void AddIFixedUpdatable(IFixedUpdatable updatable)
+        // {
+        //     _iFixedUpdatables.Add(updatable);
+        // }
 
-        internal void RemoveIFixedUpdatable(IFixedUpdatable updatable)
-        {
-            _iFixedUpdatables.Remove(updatable);
-        }
+        // internal void RemoveIFixedUpdatable(IFixedUpdatable updatable)
+        // {
+        //     _iFixedUpdatables.Remove(updatable);
+        // }
 
         #endregion
     }

@@ -4,16 +4,16 @@
     {
         #region ClassLifeCycles
 
-        internal InitializeController(GameController gameController, GameContext gameContext, GameData gameData)
+        internal InitializeController(Controllers controllers, GameData gameData) //changed
         {
-            var levelInitialized = new LevelInitializator(gameController, gameContext, gameData.gameStruct.Level);
+            var levelInitialized = new LevelInitializator(gameData.gameStruct.Level); //changed
 
-            var playerInitialized = new PlayerInitializator(gameController, gameContext, gameData.gameStruct.Player);
-            gameContext.AddController(playerInitialized.GetPlayer());
+            var playerInitialized = new PlayerInitializator(levelInitialized.GetPlayerSpawn(), gameData.gameStruct.Player); // changed
+            controllers.Add(playerInitialized.GetPlayer()); //changed
 
-            var interactableInitialized = new InteractableInitializator(gameContext, gameData.gameStruct.Interactable);
-            gameContext.AddController(interactableInitialized.GetController());
-            gameController.AddIUpdatable(interactableInitialized.GetController());
+            var interactableInitialized = new InteractableInitializator(levelInitialized.GetInteractableSpawns(), _controllers.GetUpgradables(), gameData.gameStruct.Interactable); // changed
+            _controllers.Add(interactableInitialized.GetController()); // changed
+            // gameController.AddIUpdatable(interactableInitialized.GetController()); // deleted
         }
 
         #endregion
