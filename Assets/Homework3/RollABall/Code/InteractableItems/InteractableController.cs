@@ -1,23 +1,25 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 
 namespace RollABall
 {
-    internal sealed class InteractableController : IControllable, IUpdatable
+    internal sealed class InteractableController : IUpdatable
     {
         #region Fields
+
+        public event Action<Transform> DestroyView = delegate (Transform provider) { };
 
         private InteractableData _interactableData;
         private List<IInteractable> _improverViews = new List<IInteractable>();
         private IImprover _improverListener;
-        private IImprovable _improvableListener;
 
         private float _pulsingValue = 2.1f;
         private float _pulsingMin = 2.0f;
         private float _pulsingMax = 4.0f;
-        private const float SMOOTH = 0.03f;
         private bool _isGrow = true;
+        private const float SMOOTH = 0.03f;
 
         #endregion
 
@@ -34,7 +36,7 @@ namespace RollABall
 
         #region Methods
 
-        public void UpdateTick()
+        public void UpdateTick(float deltaTime)
         {
             foreach (var item in _interactableData.SpawnedInteractable)
             {
@@ -69,7 +71,17 @@ namespace RollABall
             {
                 _improverListener = (IImprover)view;
                 _improverListener.TriggerOnEnter += ImproveTriggerEnter;
+                _improverListener.DestroyProvider += UnsubsribeView;
             }
+        }
+
+        internal void UnsubsribeView(GameObject provider)
+        {
+            _improverListener = provider.GetComponent<IImprover>();
+            _improverListener.TriggerOnEnter -= ImproveTriggerEnter;
+            _improverListener.DestroyProvider -= UnsubsribeView;
+            _improverViews.Remove(_improverListener);
+            _interactableData.SpawnedInteractable.Remove(provider);
         }
 
         private void ImproveTriggerEnter(Collider obj)

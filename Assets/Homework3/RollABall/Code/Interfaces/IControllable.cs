@@ -2,7 +2,7 @@
 
 namespace RollABall
 {
-    internal interface IControllable
+    public interface IControllable
     {
     }
 }

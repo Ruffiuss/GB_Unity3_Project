@@ -8,7 +8,8 @@ namespace RollABall
     {
         #region Fields
 
-        public event Action<Collider> TriggerOnEnter = delegate(Collider target) { };
+        public event Action<Collider> TriggerOnEnter = delegate(Collider collider) { };
+        public event Action<GameObject> DestroyProvider = delegate(GameObject provider) { };
 
         #endregion
 
@@ -19,6 +20,12 @@ namespace RollABall
         {
             Debug.Log("TRIGGERED");
             TriggerOnEnter.Invoke(other);
+            Destroy(gameObject);
+        }
+
+        private void OnDestroy()
+        {
+            DestroyProvider.Invoke(gameObject);
         }
 
         #endregion

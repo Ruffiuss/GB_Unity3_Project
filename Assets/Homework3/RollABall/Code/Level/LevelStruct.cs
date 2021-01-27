@@ -8,7 +8,7 @@ namespace RollABall
     public struct LevelStruct
     {
         public GameObject LevelGameObject;
-        public Vector3 PlayerSpawn;
+        public Transform PlayerSpawn;
         public Vector3[] InteractablePositions;
         public Vector3[] EnemyPositions;
     }

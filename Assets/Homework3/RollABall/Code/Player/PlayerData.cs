@@ -8,8 +8,16 @@ namespace RollABall
     {
         #region Fields
 
-        public PlayerStruct playerStruct;
+    	[SerializeField, Range(0, 100)] private float _speed;
+		public GameObject PlayerProvider;
 
         #endregion
+
+
+        #region Properties
+
+    	public float Speed => _speed;
+
+    	#endregion
     }
 }
