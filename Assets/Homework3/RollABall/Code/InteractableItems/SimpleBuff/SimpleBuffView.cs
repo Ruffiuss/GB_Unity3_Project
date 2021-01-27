@@ -19,6 +19,7 @@ namespace RollABall
         {
             Debug.Log("TRIGGERED");
             TriggerOnEnter.Invoke(other);
+            Destroy(gameObject);
         }
 
         #endregion

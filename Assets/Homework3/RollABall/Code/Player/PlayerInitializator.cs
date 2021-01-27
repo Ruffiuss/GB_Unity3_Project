@@ -16,11 +16,9 @@ namespace RollABall
 
         internal PlayerInitializator(Transform playerSpawn, PlayerData playerData)
         {
-            var playerStruct = playerData.playerStruct;
-
-            var spawnedPlayer = Object.Instantiate(playerStruct.PlayerGameObject, playerSpawn, Quaternion.identity);
-
-            _playerController = new PlayerController(new PlayerModel(playerStruct));
+            var spawnedPlayer = Object.Instantiate(playerData.PlayerGameObject, playerSpawn, Quaternion.identity);
+        	playerData.PlayerProvider = spawnedPlayer;
+            _playerController = new PlayerController(playerData);
         }
 
         #endregion

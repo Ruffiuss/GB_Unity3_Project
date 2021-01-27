@@ -7,16 +7,18 @@ namespace RollABall
     {
         #region Fields
 
-        private PlayerModel _playerModel;
+        private Rigidbody _rigidBody;
+        private float _speed;
 
         #endregion
 
 
         #region ClassLifeLCycles
 
-        internal PlayerController(PlayerModel playerModel)
+        internal PlayerController(PlayerData playerData)
         {
-            _playerModel = playerModel;
+            _speed = playerData.Speed;
+            _rigidBody = playerData.PlayerProvider.GetComponent<Rigidbody>();
         }
 
         #endregion
@@ -26,7 +28,7 @@ namespace RollABall
 
         public void FixedUpdateTick()
         {
-            Debug.Log(_playerModel._playerStruct.Speed);
+            Debug.Log(_speed);
             Move();
         }
 
@@ -37,14 +39,14 @@ namespace RollABall
 
             Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
-            _playerModel._rigidBody.AddForce(movement * _playerModel._playerStruct.Speed);
+            _rigidBody.AddForce(movement * _speed);
         }
 
         public void ImproveSpeed(float value)
         {
-            if (_playerModel._playerStruct.Speed < 100)
+            if (_speed < 100)
             {
-                _playerModel._playerStruct.Speed += value;
+                _speed += value;
             }
         }
 
