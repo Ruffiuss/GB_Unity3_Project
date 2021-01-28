@@ -10,6 +10,7 @@ namespace RollABall
 
         private readonly Transform _playerSpawn;
         private readonly List<Vector3> _interactableSpawns;
+        private readonly GameObject _levelProvider;
 
         #endregion
 
@@ -18,19 +19,15 @@ namespace RollABall
 
         internal LevelInitializator(LevelData levelData)
         {
-            var levelStruct = levelData.LevelStuct;
-
-            var spawnedLevel = Object.Instantiate(levelStruct.LevelGameObject, Vector3.zero, Quaternion.identity);
-            levelStruct.LevelGameObject = spawnedLevel;
-
+            _levelProvider = Object.Instantiate(levelData.LevelProvider, Vector3.zero, Quaternion.identity);
             
-            for (int i = 0; i < spawnedLevel.transform.childCount; i++)
+            for (int i = 0; i < _levelProvider.transform.childCount; i++)
             {
-                var gameObject = spawnedLevel.transform.GetChild(i);
+                var gameObject = _levelProvider.transform.GetChild(i);
                 switch (gameObject.tag)
                 {
                     case "Respawn":
-                        _playerSpawn = levelStruct.PlayerSpawn = gameObject.transform;
+                        _playerSpawn = gameObject.transform;
                         break;
                     case "Interactable":
                         _interactableSpawns = new List<Vector3>();
@@ -42,10 +39,7 @@ namespace RollABall
                     default:
                         break;
                 }
-            }            
-
-            var levelModel = new LevelModel(levelStruct);
-            new LevelController(levelModel);
+            }
         }
 
         #endregion

@@ -9,10 +9,10 @@ namespace RollABall
     {
         #region Fields
 
-        public event Action<Transform> DestroyView = delegate (Transform provider) { };
-
-        private InteractableData _interactableData;
         private List<IInteractable> _improverViews = new List<IInteractable>();
+        private List<GameObject> _subInteractableProviders = new List<GameObject>();
+        private List<IImprovable> _improvableControllers = new List<IImprovable>();
+        private List<IDegradable> _degradableControllers = new List<IDegradable>();
         private IImprover _improverListener;
 
         private float _pulsingValue = 2.1f;
@@ -26,9 +26,10 @@ namespace RollABall
 
         #region ClassLifeCycles
 
-        internal InteractableController(InteractableData interactableData)
+        internal InteractableController(List<GameObject> providers, List<IUpgradable> upgradables)
         {
-            _interactableData = interactableData;
+            _subInteractableProviders = providers;
+            DefineSubcontrollers(upgradables);
         }
 
         #endregion
@@ -38,7 +39,7 @@ namespace RollABall
 
         public void UpdateTick(float deltaTime)
         {
-            foreach (var item in _interactableData.SpawnedInteractable)
+            foreach (var item in _subInteractableProviders)
             {
                 _pulsingValue = item.transform.localScale.x;
                 if (_isGrow)
@@ -81,7 +82,7 @@ namespace RollABall
             _improverListener.TriggerOnEnter -= ImproveTriggerEnter;
             _improverListener.DestroyProvider -= UnsubsribeView;
             _improverViews.Remove(_improverListener);
-            _interactableData.SpawnedInteractable.Remove(provider);
+            _subInteractableProviders.Remove(provider);
         }
 
         private void ImproveTriggerEnter(Collider obj)
@@ -89,17 +90,33 @@ namespace RollABall
             switch (obj.tag)
             {
                 case "Player":
-                    foreach (var upgradable in _interactableData.UpgradableControllers)
+                    foreach (var improvable in _improvableControllers)
                     {
-                        if (upgradable is IImprovable)
-                        {
-                            var target = (IImprovable)upgradable;
-                            target.ImproveSpeed(20.0f);
-                        }
+                        var target = improvable;
+                        target.ImproveSpeed(20.0f);
                     }                    
                     break;
                 default:
                     break;
+            }
+        }
+
+
+        private void DefineSubcontrollers<T>(List<T> controllers) where T : IUpgradable
+        {
+            foreach(var controller in controllers)
+            {
+                switch(controller)
+                {
+                    case IImprovable improvable:
+                        _improvableControllers.Add(improvable);
+                        break;
+                    case IDegradable degradable:
+                        _degradableControllers.Add(degradable);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 

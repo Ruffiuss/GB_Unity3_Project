@@ -10,10 +10,6 @@ namespace RollABall
         #region Fields
 
         public List<ScriptableObject> InteractableTypes;
-        internal Dictionary<ISubInteractable, int> InteractableMap;
-        internal List<Vector3> InteractableSpawn;
-        internal List<GameObject> SpawnedInteractable;
-        internal List<IUpgradable> UpgradableControllers;
 
         #endregion
     }

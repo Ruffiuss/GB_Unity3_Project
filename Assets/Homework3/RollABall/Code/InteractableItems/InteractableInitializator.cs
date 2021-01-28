@@ -9,6 +9,8 @@ namespace RollABall
         #region Fields
 
         private InteractableController _interactableController;
+        private List<Vector3> _interactableSpawns;
+        private Dictionary<ISubInteractable, int> _interactableMap;
 
         #endregion
 
@@ -17,43 +19,15 @@ namespace RollABall
 
         internal InteractableInitializator(List<Vector3> interactableSpawns, List<IUpgradable> upgradables, InteractableData interactableData)
         {
-            interactableData.InteractableSpawn = interactableSpawns;
+            _interactableSpawns = new List<Vector3>();
+            _interactableSpawns = interactableSpawns;
+            var subInteractableProviders = new List<GameObject>();
 
-            interactableData.SpawnedInteractable = new List<GameObject>();
+            DefineInteractableMap(interactableData.InteractableTypes);
+            SpawnInteractableElements(ref subInteractableProviders);
 
-            var interactableCount = interactableSpawns.Count;
-            var interactableSeter = Divider(interactableCount);
-
-            interactableData.InteractableMap = new Dictionary<ISubInteractable, int>();
-            foreach (var type in interactableData.InteractableTypes)
-            {
-                interactableData.InteractableMap[(ISubInteractable)type] = interactableSeter;
-                interactableCount -= interactableSeter;
-                interactableSeter = Divider(interactableCount);
-            }
-
-            foreach (var key in interactableData.InteractableMap.Keys)
-            {
-                for (int i = 0; i < interactableData.InteractableMap[key]; i++)
-                {
-                    var subInitializator = new SubInteractableInitializator(key, interactableData.InteractableSpawn[0]);
-                    interactableData.SpawnedInteractable.Add(subInitializator._spawnedObject);
-                    interactableData.InteractableSpawn.RemoveAt(0);
-                }
-
-            }
-
-            interactableData.UpgradableControllers = new List<IUpgradable>();
-            foreach (var controller in upgradables)
-            {
-                interactableData.UpgradableControllers.Add(controller);
-            }
-
-            _interactableController = new InteractableController(interactableData);
-            foreach (var item in interactableData.SpawnedInteractable)
-            {
-                _interactableController.SubsrcibeView(item.GetComponent<IInteractable>());
-            }
+            _interactableController = new InteractableController(subInteractableProviders, upgradables);
+            SetViewListeners(subInteractableProviders);
         }
 
         #endregion
@@ -69,6 +43,41 @@ namespace RollABall
         internal InteractableController GetController()
         {
             return _interactableController;
+        }
+
+        private void DefineInteractableMap(List<ScriptableObject> types)
+        {
+            var interactableCount = _interactableSpawns.Count;
+            var interactableSeter = Divider(interactableCount);
+            _interactableMap = new Dictionary<ISubInteractable, int>();
+            foreach (var type in types)
+            {
+                _interactableMap[(ISubInteractable)type] = interactableSeter;
+                interactableCount -= interactableSeter;
+                interactableSeter = Divider(interactableCount);
+            }
+        }
+
+        private void SpawnInteractableElements(ref List<GameObject> subInteractableProviders)
+        {
+            foreach (var key in _interactableMap.Keys)
+            {
+                for (int i = 0; i < _interactableMap[key]; i++)
+                {
+                    var subInitializator = new SubInteractableInitializator(key, _interactableSpawns[0]);
+                    subInteractableProviders.Add(subInitializator._spawnedObject);
+                    _interactableSpawns.RemoveAt(0);
+                }
+
+            }
+        }
+
+        private void SetViewListeners(List<GameObject> subInteractableProviders)
+        {
+            foreach (var item in subInteractableProviders)
+            {
+                _interactableController.SubsrcibeView(item.GetComponent<IInteractable>());
+            }
         }
 
         #endregion

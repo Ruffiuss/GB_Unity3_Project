@@ -1,6 +1,6 @@
 ﻿namespace RollABall
 {
-    internal interface IDegradable
+    internal interface IDegradable : IUpgradable
     {
     }
 }
