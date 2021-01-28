@@ -5,7 +5,7 @@ using UnityEngine;
 namespace RollABall
 {
     [CreateAssetMenu(fileName = "Game", menuName = "Data/Game")]
-    public sealed class GameData : ScriptableObject
+    public sealed class GameData : UnityEngine.ScriptableObject
     {
         #region Fields
 

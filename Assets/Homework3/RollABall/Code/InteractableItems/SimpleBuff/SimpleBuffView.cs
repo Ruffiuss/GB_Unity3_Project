@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace RollABall
 {
-    public sealed class SimpleBuffView : MonoBehaviour, IImprover
+    public sealed class SimpleBuffView : MonoBehaviour, IImprover, IInteractableView
     {
         #region Fields
 

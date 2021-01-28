@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace RollABall
 {
-    public sealed class SimpleDebuffView : MonoBehaviour, IInteractable
+    public sealed class SimpleDebuffView : MonoBehaviour, IInteractable, IInteractableView
     {
         #region Fields
 

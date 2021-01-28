@@ -4,7 +4,7 @@
 namespace RollABall
 {
     [CreateAssetMenu(fileName = "Player", menuName = "Data/Player")]
-    public sealed class PlayerData : ScriptableObject
+    public sealed class PlayerData : UnityEngine.ScriptableObject
     {
         #region Fields
 

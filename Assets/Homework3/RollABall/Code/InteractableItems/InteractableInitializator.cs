@@ -10,7 +10,7 @@ namespace RollABall
 
         private InteractableController _interactableController;
         private List<Vector3> _interactableSpawns;
-        private Dictionary<ISubInteractable, int> _interactableMap;
+        private Dictionary<GameObject, int> _interactableMap;
 
         #endregion
 
@@ -23,7 +23,7 @@ namespace RollABall
             _interactableSpawns = interactableSpawns;
             var subInteractableProviders = new List<GameObject>();
 
-            DefineInteractableMap(interactableData.InteractableTypes);
+            DefineInteractableMap(interactableData);
             SpawnInteractableElements(ref subInteractableProviders);
 
             _interactableController = new InteractableController(subInteractableProviders, upgradables);
@@ -45,16 +45,32 @@ namespace RollABall
             return _interactableController;
         }
 
-        private void DefineInteractableMap(List<ScriptableObject> types)
+        private void DefineInteractableMap(InteractableData data)
         {
             var interactableCount = _interactableSpawns.Count;
             var interactableSeter = Divider(interactableCount);
-            _interactableMap = new Dictionary<ISubInteractable, int>();
-            foreach (var type in types)
+            _interactableMap = new Dictionary<GameObject, int>();
+            var type = data.GetData(InteractableType.Buff);
+            for (int i = 0; i < data.GetDataCount(); i++)
             {
-                _interactableMap[(ISubInteractable)type] = interactableSeter;
-                interactableCount -= interactableSeter;
-                interactableSeter = Divider(interactableCount);
+                switch (i)
+                {
+                    case 0:
+                        type = data.GetData(InteractableType.Buff);
+                        _interactableMap[type.provider] = interactableSeter;
+                        interactableCount -= interactableSeter;
+                        interactableSeter = Divider(interactableCount);
+                        break;
+                    case 1:
+                        type = data.GetData(InteractableType.Debuff);
+                        _interactableMap[type.provider] = interactableSeter;
+                        interactableCount -= interactableSeter;
+                        interactableSeter = Divider(interactableCount);
+                        break;
+                    default:
+                        break;
+                }
+
             }
         }
 
@@ -64,7 +80,7 @@ namespace RollABall
             {
                 for (int i = 0; i < _interactableMap[key]; i++)
                 {
-                    var subInitializator = new SubInteractableInitializator(key, _interactableSpawns[0]);
+                    var subInitializator = new InteractableFactory(key, _interactableSpawns[0]);
                     subInteractableProviders.Add(subInitializator._spawnedObject);
                     _interactableSpawns.RemoveAt(0);
                 }
