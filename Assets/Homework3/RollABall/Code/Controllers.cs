@@ -3,13 +3,12 @@ using System.Collections.Generic;
 
 namespace RollABall
 {
-    internal sealed class Controllers : IUpdatable, IFixedUpdatable, IInitialization//, ILateUpdatable, ICleanupable
+    internal sealed class Controllers : IUpdatable, IFixedUpdatable, IInitialization, ICleanupable
     {
         #region Fields
 
         private readonly List<IInitialization> _initializeControllers;
-        //private readonly List<ILateUpdatable> _lateControllers;
-        //private readonly List<ICleanupable> _cleanupControllers;
+        private readonly List<ICleanupable> _cleanupControllers;
         private readonly List<IUpgradable> _upgradableControllers;
         private readonly List<IUpdatable> _updatableControllers;
         private readonly List<IFixedUpdatable> _fixedUpdatableControllers;
@@ -22,8 +21,7 @@ namespace RollABall
         internal Controllers()
         {
             _initializeControllers = new List<IInitialization>();
-            //_lateControllers = new List<ILateUpdatable>();
-            //_cleanupControllers = new List<ICleanupable>();
+            _cleanupControllers = new List<ICleanupable>();
             _upgradableControllers = new List<IUpgradable>();
             _updatableControllers = new List<IUpdatable>();
             _fixedUpdatableControllers = new List<IFixedUpdatable>();
@@ -40,14 +38,10 @@ namespace RollABall
             {
                 _initializeControllers.Add(initializeController);
             }
-            // if (controller is ILateUpdatable lateController)
-            // {
-            //     _lateControllers.Add(lateController);
-            // }
-            // if (controller is ICleanupable cleanupController)
-            // {
-            //     _cleanupControllers.Add(cleanupController);
-            // }
+            if (controller is ICleanupable cleanupController)
+            {
+                _cleanupControllers.Add(cleanupController);
+            }
             if (controller is IUpgradable upgradableController)
             {
                 _upgradableControllers.Add(upgradableController);
@@ -64,7 +58,7 @@ namespace RollABall
             return this;
         }
 
-        public void Initialization() //method of IInitialize interface
+        public void Initialization()
         {
             for(var index = 0; index < _initializeControllers.Count; ++index)
             {
@@ -72,23 +66,15 @@ namespace RollABall
             }
         }
 
-        //public void LateUpdateTick(float deltaTime) //method of ILateUpdateTick interface
-        //{
-        //    for(var index = 0; index < _lateControllers.Count; ++index)
-        //    {
-        //        _lateControllers[index].LateUpdateTick(deltaTime);
-        //    }
-        //}
+        public void Cleanup()
+        {
+            for (var index = 0; index < _cleanupControllers.Count; ++index)
+            {
+                _cleanupControllers[index].Cleanup();
+            }
+        }
 
-        //public void Cleanup() //method of IClenup interface
-        //{
-        //    for(var index = 0; index < _cleanupControllers.Count; ++index)
-        //    {
-        //        _cleanupControllers[index].Cleanup();
-        //    }
-        //}
-
-        public void UpdateTick(float deltaTime) //method of IUpdatable interface
+        public void UpdateTick(float deltaTime)
         {
             for(var index = 0; index < _updatableControllers.Count; ++index)
             {
@@ -96,7 +82,7 @@ namespace RollABall
             }
         }
 
-        public void FixedUpdateTick(float deltaTime) //method of IFiexdUdpatable interface
+        public void FixedUpdateTick(float deltaTime)
         {
             for(var index = 0; index < _fixedUpdatableControllers.Count; ++index)
             {

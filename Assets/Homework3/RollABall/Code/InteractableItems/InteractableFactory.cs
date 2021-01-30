@@ -7,7 +7,6 @@ namespace RollABall
     {
         #region Fields
 
-        private readonly InteractableData _data;
         internal GameObject _spawnedObject;
 
         #endregion
@@ -15,9 +14,11 @@ namespace RollABall
 
         #region ClassLifeCycles
 
-        internal InteractableFactory(GameObject provider, Vector3 position)
+        [System.Obsolete]
+        internal InteractableFactory((GameObject provider, string viewPath) info, Vector3 position)
         {
-            _spawnedObject = Object.Instantiate(provider, position, Quaternion.identity);
+            _spawnedObject = Object.Instantiate(info.provider, position, Quaternion.identity);
+            UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent(_spawnedObject, info.viewPath, info.viewPath);
         }
 
         #endregion

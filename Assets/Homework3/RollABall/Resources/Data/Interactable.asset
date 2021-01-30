@@ -16,6 +16,8 @@ MonoBehaviour:
   - Type: 0
     Provider: {fileID: 2148028573284940339, guid: 49d402848bf8d1b4583d73136ac59b5e,
       type: 3}
+    ViewPath: SimpleBuffView
   - Type: 1
     Provider: {fileID: 2148028573284940339, guid: ffd35ee841d7b8f46ad1df3e9ccc5452,
       type: 3}
+    ViewPath: SimpleDebuffView

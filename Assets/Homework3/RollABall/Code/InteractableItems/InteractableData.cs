@@ -1,11 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System;
+using UnityEditor;
+using UnityEngine;
 
 
 namespace RollABall
 {
+    [CustomEditor(typeof(IInteractableView), true)]
     [CreateAssetMenu(fileName = "Interactable", menuName = "Data/Interactable")]
     public sealed class InteractableData : ScriptableObject
     {
@@ -16,7 +18,7 @@ namespace RollABall
         {
             public InteractableType Type;
             public GameObject Provider;
-            public IInteractableView View;
+            public string ViewPath;
         }
 
         [SerializeField] private List<InteractableInfo> _interactableInfos;
@@ -26,10 +28,10 @@ namespace RollABall
 
         #region Methods
 
-        public (GameObject provider, IInteractableView view) GetData(InteractableType type)
+        public (GameObject provider, string view) GetData(InteractableType type)
         {
             var interactableInfo = _interactableInfos.First(info => info.Type == type);
-            return (interactableInfo.Provider, interactableInfo.View);
+            return (interactableInfo.Provider, interactableInfo.ViewPath);
         }
 
         public int GetDataCount()
