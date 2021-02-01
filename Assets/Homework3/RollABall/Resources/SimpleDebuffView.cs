@@ -18,7 +18,6 @@ namespace RollABall
 
         public void OnTriggerEnter(Collider other)
         {
-            Debug.Log("TRIGGERED");
             TriggerOnEnter.Invoke(other);
             Destroy(gameObject);
         }

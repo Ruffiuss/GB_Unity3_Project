@@ -14,7 +14,7 @@ namespace RollABall
         #region Fields
 
         [Serializable]
-        private struct InteractableInfo 
+        private struct InteractableInfo
         {
             public InteractableType Type;
             public GameObject Provider;

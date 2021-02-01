@@ -1,15 +1,13 @@
 ﻿using System;
-using UnityEngine;
 
 
 namespace RollABall
 {
     public interface IImprover : IInteractable
     {
-        #region Properties
+        #region Feields
 
-        event Action<Collider> TriggerOnEnter;
-        event Action<GameObject> DestroyProvider;
+        event Action<float> SpeedImprover;
 
         #endregion
     }

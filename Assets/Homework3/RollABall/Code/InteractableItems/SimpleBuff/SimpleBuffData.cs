@@ -3,8 +3,8 @@ using System;
 
 
 namespace RollABall
-{ 
-    [CreateAssetMenu( fileName = "SimpleBuff", menuName = "Data/SubInteractable/SimpleBuff")]
+{
+    [CreateAssetMenu(fileName = "SimpleBuff", menuName = "Data/SubInteractable/SimpleBuff")]
     public sealed class SimpleBuffData : ScriptableObject
     {
         #region Fields

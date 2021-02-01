@@ -10,6 +10,9 @@ namespace RollABall
 
         public event Action<Collider> TriggerOnEnter = delegate(Collider collider) { };
         public event Action<GameObject> DestroyProvider = delegate(GameObject provider) { };
+        public event Action<float> SpeedImprover = delegate(float provider) { };
+
+        private float _speedBuff;
 
         #endregion
 
@@ -18,8 +21,8 @@ namespace RollABall
 
         public void OnTriggerEnter(Collider other)
         {
-            Debug.Log("TRIGGERED");
             TriggerOnEnter.Invoke(other);
+            SpeedImprover.Invoke(_speedBuff);
             Destroy(gameObject);
         }
 

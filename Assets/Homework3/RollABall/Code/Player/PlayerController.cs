@@ -31,6 +31,7 @@ namespace RollABall
         public void FixedUpdateTick(float deltaTime)
         {
             Debug.Log(_speed);
+            Debug.Log($"{_playerProvider}|{_rigidBody}");
             Move();
         }
 
