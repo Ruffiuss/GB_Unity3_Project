@@ -8,7 +8,7 @@ namespace RollABall
     {
         #region Fields
 
-        //public event Action<SimpleBuffView>
+        public event Action<Collider> TriggerOnEnter = delegate(Collider target) { };
 
         #endregion
 
@@ -17,17 +17,8 @@ namespace RollABall
 
         private void OnTriggerEnter(Collider other)
         {
-            
-        }
-
-        #endregion
-
-
-        #region Methods
-
-        public void Boost<T>(T target) where T : IImprovable
-        {
-
+            Debug.Log("TRIGGERED");
+            TriggerOnEnter.Invoke(other);
         }
 
         #endregion

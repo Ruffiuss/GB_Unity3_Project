@@ -12,9 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 406d83ed14bbef94884b715579288eaf, type: 3}
   m_Name: Interactable
   m_EditorClassIdentifier: 
-  InteractableStruct:
-    SpawnedInteractable: []
-    InteractableTypes:
-    - {fileID: 11400000, guid: a65e9cf1895b5f147b07e25e13a31231, type: 2}
-    - {fileID: 11400000, guid: fc5f790389a32184ba3f8962a2b55ff3, type: 2}
-    InteractableSpawn: []
+  InteractableTypes:
+  - {fileID: 11400000, guid: a65e9cf1895b5f147b07e25e13a31231, type: 2}
+  - {fileID: 11400000, guid: fc5f790389a32184ba3f8962a2b55ff3, type: 2}
+  InteractableSpawn:
+  - {x: 5.4, y: 1.891, z: -24.1}
+  - {x: -4.4, y: 1.891, z: -45.2}
+  SpawnedInteractable:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

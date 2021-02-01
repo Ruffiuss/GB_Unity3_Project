@@ -1,4 +1,7 @@
 ﻿using UnityEngine;
+using System;
+using System.Linq;
+using System.Collections.Generic;
 
 
 namespace RollABall
@@ -8,7 +11,11 @@ namespace RollABall
     {
         #region Fields
 
-        public InteractableStruct InteractableStruct;
+        public List<ScriptableObject> InteractableTypes;
+        public Dictionary<ISubInteractable, int> InteractableMap;
+        public List<Vector3> InteractableSpawn;
+        public List<GameObject> SpawnedInteractable;
+        public List<IUpgradable> UpgradableControllers;
 
         #endregion
     }

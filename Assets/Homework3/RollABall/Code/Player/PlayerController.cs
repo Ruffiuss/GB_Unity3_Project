@@ -3,7 +3,7 @@
 
 namespace RollABall
 {
-    internal sealed class PlayerController : IFixedUpdatable, IDegradable, IImprovable
+    internal sealed class PlayerController : IControllable, IFixedUpdatable, IDegradable, IImprovable
     {
         #region Fields
 
@@ -26,6 +26,7 @@ namespace RollABall
 
         public void FixedUpdateTick()
         {
+            Debug.Log(_playerModel._playerStruct.Speed);
             Move();
         }
 

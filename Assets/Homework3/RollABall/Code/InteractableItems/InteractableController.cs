@@ -8,8 +8,10 @@ namespace RollABall
     {
         #region Fields
 
-        private InteractableModel _interactableModel;
-        private List<IImprover> _improverViews = new List<IImprover>();
+        private InteractableData _interactableData;
+        private List<IInteractable> _improverViews = new List<IInteractable>();
+        private IImprover _improverListener;
+        private IImprovable _improvableListener;
 
         private float _pulsingValue = 2.1f;
         private float _pulsingMin = 2.0f;
@@ -22,9 +24,9 @@ namespace RollABall
 
         #region ClassLifeCycles
 
-        internal InteractableController(InteractableModel interactableModel)
+        internal InteractableController(InteractableData interactableData)
         {
-            _interactableModel = interactableModel;
+            _interactableData = interactableData;
         }
 
         #endregion
@@ -34,8 +36,7 @@ namespace RollABall
 
         public void UpdateTick()
         {
-
-            foreach (var item in _interactableModel._interactableStruct.SpawnedInteractable)
+            foreach (var item in _interactableData.SpawnedInteractable)
             {
                 _pulsingValue = item.transform.localScale.x;
                 if (_isGrow)
@@ -61,9 +62,33 @@ namespace RollABall
             }
         }
 
-        internal void SubsrcibeView(IImprover view)
+        internal void SubsrcibeView(IInteractable view)
         {
             _improverViews.Add(view);
+            if (view is IImprover)
+            {
+                _improverListener = (IImprover)view;
+                _improverListener.TriggerOnEnter += ImproveTriggerEnter;
+            }
+        }
+
+        private void ImproveTriggerEnter(Collider obj)
+        {
+            switch (obj.tag)
+            {
+                case "Player":
+                    foreach (var upgradable in _interactableData.UpgradableControllers)
+                    {
+                        if (upgradable is IImprovable)
+                        {
+                            var target = (IImprovable)upgradable;
+                            target.ImproveSpeed(20.0f);
+                        }
+                    }                    
+                    break;
+                default:
+                    break;
+            }
         }
 
         #endregion

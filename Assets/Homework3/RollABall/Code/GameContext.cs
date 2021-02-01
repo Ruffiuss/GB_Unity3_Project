@@ -66,6 +66,11 @@ namespace RollABall
             _iControllers.Remove(controller);
         }
 
+        internal List<IControllable> GetControllers()
+        {
+            return _iControllers;
+        }
+
         #endregion
     }
 }

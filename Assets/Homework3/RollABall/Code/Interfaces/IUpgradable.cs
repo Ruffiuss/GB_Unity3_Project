@@ -1,6 +1,6 @@
 ﻿namespace RollABall
 {
-    public interface IInteractable
+    public interface IUpgradable
     {
     }
 }
