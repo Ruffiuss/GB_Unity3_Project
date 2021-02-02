@@ -15,10 +15,22 @@ namespace RollABall
         #region ClassLifeCycles
 
         [System.Obsolete]
-        internal InteractableFactory((GameObject provider, string viewPath) info, Vector3 position)
+        internal InteractableFactory((GameObject provider, string viewPath, float property) info, Vector3 position)
         {
             _spawnedObject = Object.Instantiate(info.provider, position, Quaternion.identity);
-            UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent(_spawnedObject, info.viewPath, info.viewPath);
+
+            switch (UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent(_spawnedObject, info.viewPath, info.viewPath))
+            {
+                case IImprover b:
+                    b.DefineProperty(info.property);
+                    break;
+                case IDegrader b:
+                    b.DefineProperty(info.property);
+                    break;
+                default:
+                    break;
+            }
+
         }
 
         #endregion
