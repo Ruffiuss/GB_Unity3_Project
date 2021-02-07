@@ -14,6 +14,7 @@ namespace RollABall
         private List<IImprovable> _improvableControllers = new List<IImprovable>();
         private List<IDegradable> _degradableControllers = new List<IDegradable>();
         private IImprover _improverListener;
+        private IDegrader _degraderListener;
 
         private float _pulsingValue = 2.1f;
         private float _pulsingMin = 2.0f;
@@ -68,24 +69,47 @@ namespace RollABall
         internal void SubsrcibeView(IInteractable view)
         {
             _improverViews.Add(view);
-            if (view is IImprover)
+            switch (view)
             {
-                _improverListener = (IImprover)view;
-                _improverListener.TriggerOnEnter += ImproveTriggerEnter;
-                _improverListener.DestroyProvider += UnsubsribeView;
+                case IImprover improver:
+                    _improverListener = improver;
+                    _improverListener.TriggerOnEnter += ImproveTriggerEnter;
+                    _improverListener.DestroyProvider += UnsubsribeView;
+                    break;
+                case IDegrader degrader:
+                    _degraderListener = degrader;
+                    _degraderListener.TriggerOnEnter += ImproveTriggerEnter;
+                    _degraderListener.DestroyProvider += UnsubsribeView;
+                    break;
+                default:
+                    break;
             }
+
         }
 
         internal void UnsubsribeView(GameObject provider)
         {
-            _improverListener = provider.GetComponent<IImprover>();
-            _improverListener.TriggerOnEnter -= ImproveTriggerEnter;
-            _improverListener.DestroyProvider -= UnsubsribeView;
-            _improverViews.Remove(_improverListener);
-            _subInteractableProviders.Remove(provider);
+            switch (provider.GetComponent<IInteractable>())
+            {
+                case IImprover improver:
+                    improver.TriggerOnEnter -= ImproveTriggerEnter;
+                    improver.DestroyProvider -= UnsubsribeView;
+                    _improverViews.Remove(improver);
+                    _subInteractableProviders.Remove(provider);
+                    break;
+                case IDegrader degrader:
+                    degrader.TriggerOnEnter -= ImproveTriggerEnter;
+                    degrader.DestroyProvider -= UnsubsribeView;
+                    _improverViews.Remove(degrader);
+                    _subInteractableProviders.Remove(provider);
+                    break;
+                default:
+                    break;
+            }
+
         }
 
-        private void ImproveTriggerEnter(Collider obj)
+        private void ImproveTriggerEnter(Collider obj, float property)
         {
             switch (obj.tag)
             {
@@ -93,7 +117,7 @@ namespace RollABall
                     foreach (var improvable in _improvableControllers)
                     {
                         var target = improvable;
-                        target.ImproveSpeed(20.0f);
+                        target.ImproveSpeed(property);
                     }                    
                     break;
                 default:

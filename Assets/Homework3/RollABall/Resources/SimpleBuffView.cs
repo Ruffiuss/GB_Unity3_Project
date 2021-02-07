@@ -8,9 +8,8 @@ namespace RollABall
     {
         #region Fields
 
-        public event Action<Collider> TriggerOnEnter = delegate(Collider collider) { };
+        public event Action<Collider, float> TriggerOnEnter = delegate(Collider collider, float speedBuff) { };
         public event Action<GameObject> DestroyProvider = delegate(GameObject provider) { };
-        public event Action<float> SpeedImprover = delegate(float provider) { };
 
         private float _speedBuff;
 
@@ -21,14 +20,23 @@ namespace RollABall
 
         public void OnTriggerEnter(Collider other)
         {
-            TriggerOnEnter.Invoke(other);
-            SpeedImprover.Invoke(_speedBuff);
+            TriggerOnEnter.Invoke(other, _speedBuff);
             Destroy(gameObject);
         }
 
         public void OnDestroy()
         {
             DestroyProvider.Invoke(gameObject);
+        }
+
+        #endregion
+
+
+        #region Methods
+
+        public void DefineProperty(float property)
+        {
+            _speedBuff = property;
         }
 
         #endregion

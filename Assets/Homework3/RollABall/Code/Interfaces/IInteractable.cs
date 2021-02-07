@@ -8,7 +8,6 @@ namespace RollABall
     {
         #region Properties
 
-        event Action<Collider> TriggerOnEnter;
         event Action<GameObject> DestroyProvider;
 
         #endregion
