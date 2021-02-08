@@ -13,6 +13,9 @@
 
             var interactableInitialized = new InteractableInitializator(levelInitialized.GetInteractableSpawns(), controllers.GetUpgradables(), gameData.Interactable);
             controllers.Add(interactableInitialized.GetController());
+
+            var gameUIInitialized = new UIInitializator(gameData.UI);
+            controllers.Add(gameUIInitialized.GetUIController());
         }
 
         #endregion

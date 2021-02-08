@@ -82,11 +82,11 @@ namespace RollABall
             }
         }
 
-        public void FixedUpdateTick(float deltaTime)
+        public void FixedUpdateTick(float fixedDeltaTime)
         {
             for(var index = 0; index < _fixedUpdatableControllers.Count; ++index)
             {
-                _fixedUpdatableControllers[index].FixedUpdateTick(deltaTime);
+                _fixedUpdatableControllers[index].FixedUpdateTick(fixedDeltaTime);
             }
         }
 

@@ -2,6 +2,6 @@
 {
     internal interface IFixedUpdatable : IControllable
     {
-        void FixedUpdateTick(float deltaTime);
+        void FixedUpdateTick(float fixedDeltaTime);
     }
 }
