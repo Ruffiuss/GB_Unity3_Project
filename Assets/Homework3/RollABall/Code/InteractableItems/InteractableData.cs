@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using System;
-using System.Linq;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 
 namespace RollABall
@@ -11,11 +11,32 @@ namespace RollABall
     {
         #region Fields
 
-        public List<ScriptableObject> InteractableTypes;
-        public Dictionary<ISubInteractable, int> InteractableMap;
-        public List<Vector3> InteractableSpawn;
-        public List<GameObject> SpawnedInteractable;
-        public List<IUpgradable> UpgradableControllers;
+        [Serializable]
+        private struct InteractableInfo
+        {
+            public InteractableType Type;
+            public GameObject Provider;
+            public float Property;
+            public string ViewPath;
+        }
+
+        [SerializeField] private List<InteractableInfo> _interactableInfos;
+
+        #endregion
+
+
+        #region Methods
+
+        public (GameObject provider, string view, float property) GetData(InteractableType type)
+        {
+            var interactableInfo = _interactableInfos.First(info => info.Type == type);
+            return (interactableInfo.Provider, interactableInfo.ViewPath, interactableInfo.Property);
+        }
+
+        public int GetDataCount()
+        {
+            return _interactableInfos.Count;
+        }
 
         #endregion
     }

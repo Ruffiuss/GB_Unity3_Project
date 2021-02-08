@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 443537ab0ae4b9e4b92f934a7fc22558, type: 3}
   m_Name: SimpleDebuff
   m_EditorClassIdentifier: 
-  SimpleDebuffStruct:
-    SimpleDebuffGameObject: {fileID: 2148028573284940339, guid: ffd35ee841d7b8f46ad1df3e9ccc5452,
-      type: 3}
+  Provider: {fileID: 2148028573284940339, guid: ffd35ee841d7b8f46ad1df3e9ccc5452,
+    type: 3}
+  SpeedDebuff: 10
+  ViewPath: SimpleDebuffView

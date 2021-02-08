@@ -12,7 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b734e2bbe3e5e0c46b1d072330484010, type: 3}
   m_Name: Level
   m_EditorClassIdentifier: 
-  LevelStuct:
-    LevelGameObject: {fileID: 6585355420117423251, guid: fa8368b68522db54f8722d091073de2d,
-      type: 3}
-    PlayerSpawn: {x: 0, y: 0, z: 0}
+  LevelProvider: {fileID: 6585355420117423251, guid: fa8368b68522db54f8722d091073de2d,
+    type: 3}

@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 379a5a4ca67430b44b7c7060973a15ae, type: 3}
   m_Name: Game
   m_EditorClassIdentifier: 
-  gameStruct:
-    Level: {fileID: 11400000, guid: 8271c19e76cd1eb4bb7d2138303c5be9, type: 2}
-    Player: {fileID: 11400000, guid: d42dacb504492dd4e87566788937ea16, type: 2}
-    Interactable: {fileID: 11400000, guid: 98dd31338d4c84a489083aaf09989754, type: 2}
+  _levelDataPath: Level
+  _playerDataPath: Player
+  _interactableDataPath: Interactable
