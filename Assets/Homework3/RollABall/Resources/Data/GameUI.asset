@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 379a5a4ca67430b44b7c7060973a15ae, type: 3}
-  m_Name: Game
+  m_Script: {fileID: 11500000, guid: d21fe8f3014ba744e93c26f3f41b99f6, type: 3}
+  m_Name: GameUI
   m_EditorClassIdentifier: 
-  _levelDataPath: Level
-  _playerDataPath: Player
-  _interactableDataPath: Interactable
-  _gameUIDataPath: GameUI
+  GameUIProvider: {fileID: 4089633888063550728, guid: 7c522b00d0da9ad40b32acb9b7e288e7,
+    type: 3}

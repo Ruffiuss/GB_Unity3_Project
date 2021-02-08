@@ -13,6 +13,7 @@ namespace RollABall
         private Controllers _controllers;
 
         private float _deltaTime;
+        private float _fixedDeltaTime;
 
         #endregion
 
@@ -33,8 +34,8 @@ namespace RollABall
         }
         private void FixedUpdate()
         {
-        	_deltaTime = Time.deltaTime;
-            _controllers.FixedUpdateTick(_deltaTime);
+        	_fixedDeltaTime = Time.fixedDeltaTime;
+            _controllers.FixedUpdateTick(_fixedDeltaTime);
         }
 
         private void OnDestroy()

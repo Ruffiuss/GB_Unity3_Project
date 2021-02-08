@@ -12,9 +12,13 @@ namespace RollABall
         [SerializeField] private string _levelDataPath;
         [SerializeField] private string _playerDataPath;
         [SerializeField] private string _interactableDataPath;
-        private LevelData _level;
-        private PlayerData _player;
-        private InteractableData _interactable;
+        [SerializeField] private string _gameUIDataPath;
+        private LevelData _levelData;
+        private PlayerData _playerData;
+        private InteractableData _interactableData;
+        private UIData _uiData;
+
+        private const string DATA_FOLDER = "Data/";
 
         #endregion
 
@@ -25,12 +29,12 @@ namespace RollABall
         {
             get
             {
-                if (_level == null)
+                if (_levelData == null)
                 {
-                    _level = Load<LevelData>("Data/" + _levelDataPath);
+                    _levelData = Load<LevelData>(DATA_FOLDER + _levelDataPath);
                 }
 
-                return _level;
+                return _levelData;
             }
         }
 
@@ -38,12 +42,12 @@ namespace RollABall
         {
             get
             {
-                if (_player == null)
+                if (_playerData == null)
                 {
-                    _player = Load<PlayerData>("Data/" + _playerDataPath);
+                    _playerData = Load<PlayerData>(DATA_FOLDER + _playerDataPath);
                 }
 
-                return _player;
+                return _playerData;
             }
         }
 
@@ -51,12 +55,25 @@ namespace RollABall
         {
             get
             {
-                if (_interactable == null)
+                if (_interactableData == null)
                 {
-                    _interactable = Load<InteractableData>("Data/" + _interactableDataPath);
+                    _interactableData = Load<InteractableData>(DATA_FOLDER + _interactableDataPath);
                 }
 
-                return _interactable;
+                return _interactableData;
+            }
+        }
+
+        public UIData UI
+        {
+            get
+            {
+                if (_uiData == null)
+                {
+                    _uiData = Load<UIData>(DATA_FOLDER + _gameUIDataPath);
+                }
+
+                return _uiData;
             }
         }
 

@@ -28,10 +28,9 @@ namespace RollABall
 
         #region Methods
 
-        public void FixedUpdateTick(float deltaTime)
+        public void FixedUpdateTick(float fixedDeltaTime)
         {
             Debug.Log(_speed);
-            Debug.Log($"{_playerProvider}|{_rigidBody}");
             Move();
         }
 
