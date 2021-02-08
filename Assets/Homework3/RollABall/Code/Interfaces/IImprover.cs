@@ -1,14 +1,17 @@
-﻿using System;
-using UnityEngine;
-
-
-namespace RollABall
+﻿namespace RollABall
 {
     public interface IImprover : IInteractable
     {
-        #region Properties
+        #region Feields
 
-        event Action<Collider> TriggerOnEnter;
+        event System.Action<UnityEngine.Collider, float> TriggerOnEnter;
+
+        #endregion
+
+
+        #region Methods
+
+        void DefineProperty(float property);
 
         #endregion
     }

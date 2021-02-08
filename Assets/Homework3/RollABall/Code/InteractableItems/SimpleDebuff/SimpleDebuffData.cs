@@ -3,30 +3,14 @@ using System;
 
 
 namespace RollABall
-{ 
-    [CreateAssetMenu( fileName = "SimpleDebuff", menuName = "Data/SubInteractable/SimpleDebuff")]
-    public sealed class SimpleDebuffData : ScriptableObject, ISubInteractable
+{
+    [CreateAssetMenu(fileName = "SimpleDebuff", menuName = "Data/SubInteractable/SimpleDebuff")]
+    public sealed class SimpleDebuffData : ScriptableObject
     {
         #region Fields
 
-        public SimpleDebuffStruct SimpleDebuffStruct;
-
-        #endregion
-
-
-        #region Properties
-
-        GameObject ISubInteractable.SubInteractableGameObject => SimpleDebuffStruct.SimpleDebuffGameObject; 
-
-        #endregion
-
-
-        #region ClassLifeCycles
-
-        public SimpleDebuffData(SimpleDebuffStruct simpleDebuffStruct)
-        {
-            SimpleDebuffStruct = simpleDebuffStruct;
-        }
+        public GameObject SimpleDebuffGameObject;
+        [SerializeField, Range(1, 100)] public float SpeedDebuff;
 
         #endregion
     }

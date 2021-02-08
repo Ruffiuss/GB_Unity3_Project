@@ -3,20 +3,24 @@
 
 namespace RollABall
 {
-    internal sealed class PlayerController : IControllable, IFixedUpdatable, IDegradable, IImprovable
+    internal sealed class PlayerController : IFixedUpdatable, IDegradable, IImprovable
     {
         #region Fields
 
-        private PlayerModel _playerModel;
+        private GameObject _playerProvider;
+        private Rigidbody _rigidBody;
+        private float _speed;
 
         #endregion
 
 
         #region ClassLifeLCycles
 
-        internal PlayerController(PlayerModel playerModel)
+        internal PlayerController(PlayerData playerData, GameObject playerProvider)
         {
-            _playerModel = playerModel;
+            _playerProvider = playerProvider;
+            _speed = playerData.Speed;
+            _rigidBody = _playerProvider.GetComponentInChildren<Rigidbody>();
         }
 
         #endregion
@@ -24,9 +28,10 @@ namespace RollABall
 
         #region Methods
 
-        public void FixedUpdateTick()
+        public void FixedUpdateTick(float deltaTime)
         {
-            Debug.Log(_playerModel._playerStruct.Speed);
+            Debug.Log(_speed);
+            Debug.Log($"{_playerProvider}|{_rigidBody}");
             Move();
         }
 
@@ -37,14 +42,14 @@ namespace RollABall
 
             Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
-            _playerModel._rigidBody.AddForce(movement * _playerModel._playerStruct.Speed);
+            _rigidBody.AddForce(movement * _speed);
         }
 
         public void ImproveSpeed(float value)
         {
-            if (_playerModel._playerStruct.Speed < 100)
+            if (_speed < 100)
             {
-                _playerModel._playerStruct.Speed += value;
+                _speed += value;
             }
         }
 

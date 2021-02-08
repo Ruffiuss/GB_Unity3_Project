@@ -1,7 +1,7 @@
 ﻿namespace RollABall
 {
-    internal interface IFixedUpdatable
+    internal interface IFixedUpdatable : IControllable
     {
-        void FixedUpdateTick();
+        void FixedUpdateTick(float deltaTime);
     }
 }

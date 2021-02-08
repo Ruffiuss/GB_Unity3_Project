@@ -3,30 +3,14 @@ using System;
 
 
 namespace RollABall
-{ 
-    [CreateAssetMenu( fileName = "SimpleBuff", menuName = "Data/SubInteractable/SimpleBuff")]
-    public sealed class SimpleBuffData : ScriptableObject, ISubInteractable
+{
+    [CreateAssetMenu(fileName = "SimpleBuff", menuName = "Data/SubInteractable/SimpleBuff")]
+    public sealed class SimpleBuffData : ScriptableObject
     {
         #region Fields
 
-        public SimpleBuffStruct SimpleBuffStruct;
-
-        #endregion
-
-
-        #region Properties
-
-        GameObject ISubInteractable.SubInteractableGameObject => SimpleBuffStruct.SimpleBuffGameObject;
-
-        #endregion
-
-
-        #region ClassLifeCycles
-
-        public SimpleBuffData(SimpleBuffStruct simpleBuffStruct)
-        {
-            SimpleBuffStruct = simpleBuffStruct;
-        }
+        public GameObject SimpleBuffGameObject;
+        [SerializeField, Range(1, 100)] public float SpeedBuff;
 
         #endregion
     }
