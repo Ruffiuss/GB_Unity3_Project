@@ -9,7 +9,7 @@ namespace RollABall
     {
         #region Fields
 
-        private List<int> list;
+        private List<char> list;
         private System.Random size;
 
         #endregion
@@ -20,10 +20,10 @@ namespace RollABall
         private void Awake()
         {
             size = new System.Random();
-            list = new List<int>(size.Next(1, 1000));
+            list = new List<char>(size.Next(1, 1000));
             for (int i = 0; i < list.Capacity; i++)
             {
-                list.Add(size.Next(0,9)); //0-9 (0x0030, 0x0039); 0-Z (0x030, 0x005A);
+                list.Add((char)size.Next(0x030, 0x005A)); //0-9 (0x0030, 0x0039); 0-Z (0x030, 0x005A);
             }
 
 
@@ -33,7 +33,7 @@ namespace RollABall
             CheckIntegerDuplicates(list);
         }
 
-        private void ShowElements(List<int> integers)
+        private void ShowElements<T>(List<T> integers)
         {
             string all = "";
             foreach (var item in integers)
@@ -43,12 +43,12 @@ namespace RollABall
             Debug.Log($"All elems of list: {all}\n");
         }
 
-        private void CheckIntegerDuplicates(List<int> integers)
+        private void CheckIntegerDuplicates<T>(List<T> integers)
         {
-            Dictionary<int, int> duplicates = new Dictionary<int, int>();
+            Dictionary<T, int> duplicates = new Dictionary<T, int>();
             for (int i = 0; i < integers.Count; i++)
             {
-                int key = integers[i];
+                var key = integers[i];
                 if (!duplicates.ContainsKey(key))
                 {
                     duplicates.Add(key, 1);
