@@ -10,7 +10,7 @@ namespace RollABall
         #region Fields
 
         public GameObject SimpleBuffGameObject;
-        [SerializeField, Range(1, 100)] public float SpeedBuff;
+        [SerializeField, Range(250, 500)] public float SpeedBuff;
 
         #endregion
     }

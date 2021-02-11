@@ -1,6 +1,6 @@
 ﻿namespace RollABall
 {
-    public interface IUpgradable
+    public interface IUpgradable : IControllable
     {
     }
 }
