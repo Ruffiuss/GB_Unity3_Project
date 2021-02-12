@@ -4,8 +4,8 @@
     {
         #region ClassLifeCycles
 
-        internal InitializeController(Controllers controllers, GameData gameData)
-        {
+        internal InitializeController(Controllers controllers, GameData gameData, GameController gameController)
+        {       
             var levelInitialized = new LevelInitializator(gameData.Level);
 
             var inputInitialized = new InputInitializator();
@@ -14,6 +14,7 @@
             var playerInitialized = new PlayerInitializator(levelInitialized.GetPlayerSpawn(), gameData.Player);
             controllers.Add(playerInitialized.GetPlayerController());
             controllers.Add(new MoveController(inputInitialized.GetInput(), playerInitialized.GetPlayerController()));
+            gameController.ListenToRestart(inputInitialized.GetInput());
 
             var interactableInitialized = new InteractableInitializator(levelInitialized.GetInteractableSpawns(), controllers.GetUpgradables(), gameData.Interactable);
             controllers.Add(interactableInitialized.GetController());

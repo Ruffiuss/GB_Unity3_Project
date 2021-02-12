@@ -3,7 +3,7 @@
 
 namespace RollABall
 {
-    internal sealed class MoveController : IFixedUpdatable
+    internal sealed class MoveController : IFixedUpdatable, ICleanupable
     {
         #region Fields
 
@@ -11,8 +11,7 @@ namespace RollABall
         private IInputProxy _inputProxy;
         private Vector3 _movement;
         private float _inputHorizontal;
-        private float _inputVertical;
-        
+        private float _inputVertical;        
 
         #endregion
 
@@ -43,7 +42,11 @@ namespace RollABall
             _movement.Set(_inputHorizontal, 0.0f, _inputVertical);
 
             _unit.Rigidbody.AddForce(_movement * speed);
+        }
 
+        public void Cleanup()
+        {
+            _inputProxy.AxisOnChage -= InputAxisOnChange;
         }
 
         #endregion

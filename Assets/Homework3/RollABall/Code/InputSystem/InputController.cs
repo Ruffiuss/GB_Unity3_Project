@@ -4,7 +4,7 @@
     {
         #region Fields
 
-        private readonly IInputProxy _axises;
+        private readonly IInputProxy _input;
 
         #endregion
 
@@ -13,7 +13,7 @@
 
         public InputController(IInputProxy input)
         {
-            _axises = input;
+            _input = input;
         }
 
         #endregion
@@ -23,7 +23,8 @@
 
         public void UpdateTick(float deltTime)
         {
-            _axises.GetAxis();
+            _input.GetAxisChanged();
+            _input.GetKeyPressed();
         }
 
         #endregion

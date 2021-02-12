@@ -3,7 +3,7 @@
 
 namespace RollABall
 {
-    internal sealed class PlayerModel
+    internal sealed class PlayerModel : ICleanupable
     {
         #region PrivateData
 
@@ -64,6 +64,11 @@ namespace RollABall
         internal void ImproveSpeed(float value)
         {
             _playerDataCopy._speed = _playerDataCopy._speed < 5000 ? _playerDataCopy._speed + value : _playerDataCopy._speed;
+        }
+
+        public void Cleanup()
+        {
+            _playerDataCopy._playerProvider.AddComponent<Destroyer>();
         }
 
         #endregion

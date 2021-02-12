@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 
 namespace RollABall
@@ -6,6 +7,9 @@ namespace RollABall
     public interface IInputProxy
     {
         event Action<float, float> AxisOnChage;
-        void GetAxis();
+        event Action<bool> RestartOnPressed;
+        event Action<bool> EscapeOnPressed;
+        void GetAxisChanged();
+        void GetKeyPressed();
     }
 }
