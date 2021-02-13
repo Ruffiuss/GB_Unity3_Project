@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 namespace RollABall
@@ -50,9 +51,13 @@ namespace RollABall
         {
             if (value)
             {
-                gameObject.AddComponent<GameController>()._gameData = _gameData;
+                Scene currentScene = SceneManager.GetActiveScene();
+                SceneManager.LoadScene(0);
+                SceneManager.UnloadSceneAsync(currentScene);
+                Resources.UnloadUnusedAssets();
+                gameObject.AddComponent<Destroyer>();
                 Destroy(this);
-                
+                Debug.Log($"alive|{SceneManager.GetAllScenes().Length}");
             }
         }
 
