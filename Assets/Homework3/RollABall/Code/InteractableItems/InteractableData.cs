@@ -16,7 +16,7 @@ namespace RollABall
         {
             public InteractableType Type;
             public GameObject Provider;
-            public float Property;
+            public float[] Properties;
         }
 
         [SerializeField] private List<InteractableInfo> _interactableInfos;
@@ -26,10 +26,10 @@ namespace RollABall
 
         #region Methods
 
-        public (GameObject provider, float property) GetData(InteractableType type)
+        public (GameObject provider, float[] properties) GetData(InteractableType type)
         {
             var interactableInfo = _interactableInfos.First(info => info.Type == type);
-            return (interactableInfo.Provider, interactableInfo.Property);
+            return (interactableInfo.Provider, interactableInfo.Properties);
         }
 
         public int GetDataCount()

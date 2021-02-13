@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System;
 
 
 namespace RollABall
@@ -10,7 +9,7 @@ namespace RollABall
         #region Fields
 
         public GameObject SimpleBuffGameObject;
-        [SerializeField, Range(250, 500)] public float SpeedBuff;
+        [SerializeField, Range(GlobalProperties.MIN_SPEEDBUFF, GlobalProperties.MAX_SPEEDBUFF)] public float SpeedBuff;
 
         #endregion
     }

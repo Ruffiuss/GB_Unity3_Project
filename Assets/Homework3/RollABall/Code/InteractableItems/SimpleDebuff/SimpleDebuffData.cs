@@ -10,7 +10,7 @@ namespace RollABall
         #region Fields
 
         public GameObject SimpleDebuffGameObject;
-        [SerializeField, Range(250, 500)] public float SpeedDebuff;
+        [SerializeField, Range(GlobalProperties.MIN_SPEEDBUFF, GlobalProperties.MAX_SPEEDBUFF)] public float SpeedDebuff;
 
         #endregion
     }

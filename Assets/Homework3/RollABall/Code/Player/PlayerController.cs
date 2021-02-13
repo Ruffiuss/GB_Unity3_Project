@@ -3,7 +3,7 @@
 
 namespace RollABall
 {
-    internal sealed class PlayerController : IMovable, IDegradable, IImprovable, ICleanupable
+    internal sealed class PlayerController : IMovable, IDegradable, IImprovable
     {
         #region Fields
 
@@ -39,9 +39,9 @@ namespace RollABall
             _playerModel.ImproveSpeed(value);
         }
 
-        public void Cleanup()
+        public void ImproveScore(int value)
         {
-            _playerModel.Cleanup();
+            _playerModel.ImproveScore(value);
         }
 
         #endregion

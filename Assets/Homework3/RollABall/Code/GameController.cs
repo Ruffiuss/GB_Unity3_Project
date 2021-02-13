@@ -57,7 +57,6 @@ namespace RollABall
                 Resources.UnloadUnusedAssets();
                 gameObject.AddComponent<Destroyer>();
                 Destroy(this);
-                Debug.Log($"alive|{SceneManager.GetAllScenes().Length}");
             }
         }
 

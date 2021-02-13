@@ -10,7 +10,7 @@ namespace RollABall
 
         private InteractableController _interactableController;
         private List<Vector3> _interactableSpawns;
-        private Dictionary<(GameObject, float), int> _interactableMap;
+        private Dictionary<(GameObject, float[]), int> _interactableMap;
 
         #endregion
 
@@ -49,7 +49,7 @@ namespace RollABall
         {
             var interactableCount = _interactableSpawns.Count;
             var interactableSeter = Divider(interactableCount);
-            _interactableMap = new Dictionary<(GameObject, float), int>();
+            _interactableMap = new Dictionary<(GameObject, float[]), int>();
             var type = data.GetData(InteractableType.Buff);
             for (int i = 0; i < data.GetDataCount(); i++)
             {
