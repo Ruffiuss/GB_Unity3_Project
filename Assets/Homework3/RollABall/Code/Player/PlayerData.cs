@@ -10,7 +10,6 @@ namespace RollABall
 
     	[SerializeField, Range(GlobalProperties.MIN_PLAYER_SPEED, GlobalProperties.MAX_PLAYER_SPEED)] public float Speed;
     	[SerializeField, Range(GlobalProperties.MIN_PLAYER_MASS, GlobalProperties.MAX_PLAYER_MASS)] public float Mass;
-    	[SerializeField, Range(0, 8)] public float Score;
 		public GameObject PlayerProvider;
 
         #endregion

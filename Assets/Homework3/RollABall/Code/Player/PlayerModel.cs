@@ -12,8 +12,6 @@ namespace RollABall
             internal GameObject _playerProvider;
             internal float _speed;
             internal float _mass;
-            internal float _score;
-
         }
 
         #endregion
@@ -54,7 +52,6 @@ namespace RollABall
         {
             playerDataCopy._speed = playerData.Speed;
             playerDataCopy._mass = playerData.Mass;
-            playerDataCopy._score = playerData.Score;
         }
 
         private void DefineComponents(GameObject provider)
@@ -66,15 +63,6 @@ namespace RollABall
         internal void ImproveSpeed(float value)
         {
             _playerDataCopy._speed = _playerDataCopy._speed < 5000 ? _playerDataCopy._speed + value : _playerDataCopy._speed;
-        }
-
-        internal void ImproveScore(int value)
-        {
-            _playerDataCopy._score += value;
-            if (_playerDataCopy._score >= GlobalProperties.SCORE_TO_WIN)
-            {
-                Debug.Log("U WON");
-            }
         }
 
         #endregion

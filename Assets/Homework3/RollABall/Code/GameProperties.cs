@@ -20,6 +20,6 @@ namespace RollABall
         public const float MAX_PLAYER_SPEED = 1200;
         public const float MIN_PLAYER_MASS = 0.1f;
         public const float MAX_PLAYER_MASS = 5.0f;
-        public const int SCORE_TO_WIN = 8;
+        public const int SCORE_TO_WIN = 2;
     }
 }

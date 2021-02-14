@@ -33,15 +33,9 @@ namespace RollABall
 
         #region Methods
 
-
         public void ImproveSpeed(float value)
         {
             _playerModel.ImproveSpeed(value);
-        }
-
-        public void ImproveScore(int value)
-        {
-            _playerModel.ImproveScore(value);
         }
 
         #endregion

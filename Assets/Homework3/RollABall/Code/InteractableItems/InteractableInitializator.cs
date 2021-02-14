@@ -17,7 +17,7 @@ namespace RollABall
 
         #region ClassLifeCycles
 
-        internal InteractableInitializator(List<Vector3> interactableSpawns, List<IUpgradable> upgradables, InteractableData interactableData)
+        internal InteractableInitializator(List<Vector3> interactableSpawns, List<IUpgradable> upgradables, IGameProcessable gameProcess, InteractableData interactableData)
         {
             _interactableSpawns = new List<Vector3>();
             _interactableSpawns = interactableSpawns;
@@ -26,7 +26,7 @@ namespace RollABall
             DefineInteractableMap(interactableData);
             SpawnInteractableElements(ref subInteractableProviders);
 
-            _interactableController = new InteractableController(subInteractableProviders, upgradables);
+            _interactableController = new InteractableController(subInteractableProviders, upgradables, gameProcess);
             SetViewListeners(subInteractableProviders);
         }
 
@@ -70,7 +70,6 @@ namespace RollABall
                     default:
                         break;
                 }
-
             }
         }
 
@@ -84,7 +83,18 @@ namespace RollABall
                     subInteractableProviders.Add(subInitializator._spawnedObject);
                     _interactableSpawns.RemoveAt(0);
                 }
-
+            }
+            if (_interactableSpawns.Count > 0)
+            {
+                foreach (var key in _interactableMap.Keys)
+                {
+                    for(int i = 0; i < _interactableSpawns.Count; i++)
+                    {
+                        var subInitializator = new InteractableFactory(key, _interactableSpawns[0]);
+                        subInteractableProviders.Add(subInitializator._spawnedObject);
+                        _interactableSpawns.RemoveAt(0);
+                    }
+                }
             }
         }
 

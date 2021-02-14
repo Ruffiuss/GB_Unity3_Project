@@ -12,6 +12,7 @@ namespace RollABall
         private readonly List<IUpgradable> _upgradableControllers;
         private readonly List<IUpdatable> _updatableControllers;
         private readonly List<IFixedUpdatable> _fixedUpdatableControllers;
+        private readonly IGameProcessable _gameProcesController;
 
         #endregion
 
@@ -25,6 +26,7 @@ namespace RollABall
             _upgradableControllers = new List<IUpgradable>();
             _updatableControllers = new List<IUpdatable>();
             _fixedUpdatableControllers = new List<IFixedUpdatable>();
+            _gameProcesController = new GameProcessController();
         }
 
         #endregion
@@ -95,6 +97,10 @@ namespace RollABall
             return _upgradableControllers;
         }
 
+        public IGameProcessable GetGameProcessController()
+        {
+            return _gameProcesController;
+        }
 
         #endregion
     }

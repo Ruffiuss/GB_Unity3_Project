@@ -16,6 +16,7 @@ namespace RollABall
         private ISpeedImprover _improverListener;
         private ISpeedDegrader _degraderListener;
         private IScoreAdder _scoreListener;
+        private IGameProcessable _gameProcess;
 
         private float _pulsingValue = 2.1f;
         private float _pulsingMin = 2.0f;
@@ -28,9 +29,10 @@ namespace RollABall
 
         #region ClassLifeCycles
 
-        internal InteractableController(List<GameObject> providers, List<IUpgradable> upgradables)
+        internal InteractableController(List<GameObject> providers, List<IUpgradable> upgradables, IGameProcessable gameProcess)
         {
             _subInteractableProviders = providers;
+            _gameProcess = gameProcess;
             DefineSubcontrollers(upgradables);
         }
 
@@ -133,10 +135,7 @@ namespace RollABall
 
         private void ChangeScore(int scorePoints)
         {
-            foreach (var improvable in _improvableControllers)
-            {
-                improvable.ImproveScore(scorePoints);
-            }
+            _gameProcess.ChangeScore(scorePoints);
         }
 
 
