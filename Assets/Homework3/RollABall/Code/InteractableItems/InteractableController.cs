@@ -9,14 +9,14 @@ namespace RollABall
     {
         #region Fields
 
+        private InteractableModel _interactableModel;
+
         private List<IInteractable> _interactableViews = new List<IInteractable>();
-        private List<GameObject> _subInteractableProviders = new List<GameObject>();
         private List<IImprovable> _improvableControllers = new List<IImprovable>();
         private List<IDegradable> _degradableControllers = new List<IDegradable>();
         private ISpeedImprover _improverListener;
         private ISpeedDegrader _degraderListener;
         private IScoreAdder _scoreListener;
-        private IGameProcessable _gameProcess;
 
         private float _pulsingValue = 2.1f;
         private float _pulsingMin = 2.0f;
@@ -29,11 +29,10 @@ namespace RollABall
 
         #region ClassLifeCycles
 
-        internal InteractableController(List<GameObject> providers, List<IUpgradable> upgradables, IGameProcessable gameProcess)
+        internal InteractableController(InteractableModel model)
         {
-            _subInteractableProviders = providers;
-            _gameProcess = gameProcess;
-            DefineSubcontrollers(upgradables);
+            _interactableModel = model;
+            DefineSubcontrollers(_interactableModel.Upgradables);
         }
 
         #endregion
@@ -43,7 +42,7 @@ namespace RollABall
 
         public void UpdateTick(float deltaTime)
         {
-            foreach (var item in _subInteractableProviders)
+            foreach (var item in _interactableModel.Providers)
             {
                 _pulsingValue = item.transform.localScale.x;
                 if (_isGrow)
@@ -102,14 +101,14 @@ namespace RollABall
                 improver.SpeedImprove -= ChangeSpeed;
                 improver.DestroyProvider -= UnsubsribeView;
                 _interactableViews.Remove(improver);
-                _subInteractableProviders.Remove(provider);
+                _interactableModel.Providers.Remove(provider);
             }
             if (component is ISpeedDegrader degrader)
             {
                 degrader.SpeedDegrade -= ChangeSpeed;
                 degrader.DestroyProvider -= UnsubsribeView;
                 _interactableViews.Remove(degrader);
-                _subInteractableProviders.Remove(provider);
+                _interactableModel.Providers.Remove(provider);
             }
             if (component is IScoreAdder adder)
             {
@@ -135,9 +134,8 @@ namespace RollABall
 
         private void ChangeScore(int scorePoints)
         {
-            _gameProcess.ChangeScore(scorePoints);
+            _interactableModel.GameProcess.ChangeScore(scorePoints);
         }
-
 
         private void DefineSubcontrollers<T>(List<T> controllers) where T : IUpgradable
         {

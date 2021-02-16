@@ -12,12 +12,5 @@ namespace RollABall
         public GameObject GameUIProvider;
 
         #endregion
-
-
-        #region Properties
-
-
-
-        #endregion
     }
 }
