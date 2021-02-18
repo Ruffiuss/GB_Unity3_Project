@@ -15,20 +15,23 @@ namespace RollABall
 
         #region ClassLifeCycles
 
-        internal InteractableFactory((GameObject provider, float property) info, Vector3 position)
+        internal InteractableFactory((GameObject provider, float[] property) info, Vector3 position)
         {
             _spawnedObject = Object.Instantiate(info.provider, position, Quaternion.identity);
 
-            switch (_spawnedObject.GetComponent<IInteractable>())
+            var interactable = _spawnedObject.GetComponent<IInteractable>();
+
+            if (interactable is ISpeedImprover improve)
             {
-                case IImprover improve:
-                    improve.DefineProperty(info.property);
-                    break;
-                case IDegrader degrade:
-                    degrade.DefineProperty(info.property);
-                    break;
-                default:
-                    break;
+                improve.DefineSpeedProperty(info.property[0]);
+            }
+            if (interactable is ISpeedDegrader degrade)
+            {
+                degrade.DefineSpeedProperty(info.property[0]);
+            }
+            if (interactable is IScoreAdder adder)
+            {
+                adder.DefineScoreProperty((int)info.property[1]);
             }
         }
 

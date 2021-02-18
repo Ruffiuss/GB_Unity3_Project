@@ -8,6 +8,7 @@ namespace RollABall
         #region Fields
 
         private PlayerController _playerController;
+        private PlayerModel _playerModel;
 
         #endregion
 
@@ -17,7 +18,7 @@ namespace RollABall
         internal PlayerInitializator(Transform playerSpawn, PlayerData playerData)
         {
             var spawnedPlayer = Object.Instantiate(playerData.PlayerProvider, playerSpawn.position, Quaternion.identity);
-            _playerController = new PlayerController(playerData, spawnedPlayer);
+            _playerController = new PlayerController(new PlayerModel(playerData, spawnedPlayer));
         }
 
         #endregion

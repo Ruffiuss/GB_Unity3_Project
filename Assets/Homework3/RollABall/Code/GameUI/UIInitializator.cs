@@ -11,7 +11,7 @@ namespace RollABall
         private UIController _uiController;
         private Canvas _canvas;
         private List<Canvas> _canvases;
-        private List<GameObject> _uiLayers;
+        private Dictionary<string, GameObject> _uiLayers;
 
         #endregion
 
@@ -21,9 +21,9 @@ namespace RollABall
         internal UIInitializator(UIData uiData)
         {
             var spawnedUI = Object.Instantiate(uiData.GameUIProvider, Vector3.zero, Quaternion.identity);
-            _uiController = new UIController(uiData, spawnedUI);
+            DefineUILayers(spawnedUI);
 
-            DefineUILayers(spawnedUI);           
+            _uiController = new UIController(_uiLayers);
         }
 
         #endregion
@@ -39,7 +39,7 @@ namespace RollABall
         private void DefineUILayers(GameObject provider)
         {
             _canvases = new List<Canvas>();
-            _uiLayers = new List<GameObject>();
+            _uiLayers = new Dictionary<string, GameObject>();
 
             for (int i = 0; i < provider.transform.childCount; i++)
             {
@@ -53,16 +53,19 @@ namespace RollABall
                         switch (layer.tag)
                         {
                             case "UILayer":
-                                _uiLayers.Add(layer.gameObject);
+                                _uiLayers.Add(layer.name, layer.gameObject);
                                 break;
                             default:
                                 break;
                         }
                     }
-
                 }
-
             }
+        }
+
+        public void SubscribeGameProcess(IGameProcessable gameProcess)
+        {
+            gameProcess.GameEnded += _uiController.ShowGameEnd;
         }
 
         #endregion

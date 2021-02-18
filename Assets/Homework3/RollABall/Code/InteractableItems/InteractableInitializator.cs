@@ -9,25 +9,39 @@ namespace RollABall
         #region Fields
 
         private InteractableController _interactableController;
-        private List<Vector3> _interactableSpawns;
-        private Dictionary<(GameObject, float), int> _interactableMap;
+        private Queue<Vector3> _spawnQueue;
+        private Dictionary<(GameObject, float[]), int> _interactableMap;
+
+        internal event System.Action<GameObject> NewProvider = delegate (GameObject provider) { };
 
         #endregion
 
 
         #region ClassLifeCycles
 
-        internal InteractableInitializator(List<Vector3> interactableSpawns, List<IUpgradable> upgradables, InteractableData interactableData)
+        internal InteractableInitializator(List<Vector3> interactableSpawns, List<IUpgradable> upgradables, IGameProcessable gameProcess, InteractableData interactableData)
         {
-            _interactableSpawns = new List<Vector3>();
-            _interactableSpawns = interactableSpawns;
-            var subInteractableProviders = new List<GameObject>();
+            _spawnQueue = new Queue<Vector3>();
+            foreach (var spawn in interactableSpawns)
+            {
+                _spawnQueue.Enqueue(spawn);
+            }
 
-            DefineInteractableMap(interactableData);
-            SpawnInteractableElements(ref subInteractableProviders);
+            var interactableModel = new InteractableModel(interactableData, gameProcess);
+            interactableModel.SubscribeEvent(this);
 
-            _interactableController = new InteractableController(subInteractableProviders, upgradables);
-            SetViewListeners(subInteractableProviders);
+            foreach (var upgradable in upgradables)
+            {
+                interactableModel.AddUpgradable(upgradable);
+            }
+
+            DefineInteractableMap(interactableData, _spawnQueue.Count);
+            SpawnInteractableElements(interactableModel);
+
+            _interactableController = new InteractableController(interactableModel);
+            SetViewListeners(interactableModel.Providers);
+
+            interactableModel.SubscribeEvent(this);
         }
 
         #endregion
@@ -45,11 +59,10 @@ namespace RollABall
             return _interactableController;
         }
 
-        private void DefineInteractableMap(InteractableData data)
+        private void DefineInteractableMap(InteractableData data, int count)
         {
-            var interactableCount = _interactableSpawns.Count;
-            var interactableSeter = Divider(interactableCount);
-            _interactableMap = new Dictionary<(GameObject, float), int>();
+            var interactableSeter = Divider(count);
+            _interactableMap = new Dictionary<(GameObject, float[]), int>();
             var type = data.GetData(InteractableType.Buff);
             for (int i = 0; i < data.GetDataCount(); i++)
             {
@@ -58,33 +71,43 @@ namespace RollABall
                     case 0:
                         type = data.GetData(InteractableType.Buff);
                         _interactableMap[type] = interactableSeter;
-                        interactableCount -= interactableSeter;
-                        interactableSeter = Divider(interactableCount);
+                        count -= interactableSeter;
+                        interactableSeter = Divider(count);
                         break;
                     case 1:
                         type = data.GetData(InteractableType.Debuff);
                         _interactableMap[type] = interactableSeter;
-                        interactableCount -= interactableSeter;
-                        interactableSeter = Divider(interactableCount);
+                        count -= interactableSeter;
+                        interactableSeter = Divider(count);
                         break;
                     default:
                         break;
                 }
-
             }
         }
 
-        private void SpawnInteractableElements(ref List<GameObject> subInteractableProviders)
+        private void SpawnInteractableElements(InteractableModel model)
         {
             foreach (var key in _interactableMap.Keys)
             {
                 for (int i = 0; i < _interactableMap[key]; i++)
                 {
-                    var subInitializator = new InteractableFactory(key, _interactableSpawns[0]);
-                    subInteractableProviders.Add(subInitializator._spawnedObject);
-                    _interactableSpawns.RemoveAt(0);
+                    var subInitializator = new InteractableFactory(key, _spawnQueue.Peek());
+                    NewProvider.Invoke(subInitializator._spawnedObject);
+                    _spawnQueue.Dequeue();
                 }
-
+            }
+            if (_spawnQueue.Count > 0)
+            {
+                foreach (var key in _interactableMap.Keys)
+                {
+                    for(int i = 0; i < _spawnQueue.Count; i++)
+                    {
+                        var subInitializator = new InteractableFactory(key, _spawnQueue.Peek());
+                        NewProvider.Invoke(subInitializator._spawnedObject);
+                        _spawnQueue.Dequeue();
+                    }
+                }
             }
         }
 

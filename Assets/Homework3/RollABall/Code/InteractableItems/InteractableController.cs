@@ -9,12 +9,14 @@ namespace RollABall
     {
         #region Fields
 
-        private List<IInteractable> _improverViews = new List<IInteractable>();
-        private List<GameObject> _subInteractableProviders = new List<GameObject>();
+        private InteractableModel _interactableModel;
+
+        private List<IInteractable> _interactableViews = new List<IInteractable>();
         private List<IImprovable> _improvableControllers = new List<IImprovable>();
         private List<IDegradable> _degradableControllers = new List<IDegradable>();
-        private IImprover _improverListener;
-        private IDegrader _degraderListener;
+        private ISpeedImprover _improverListener;
+        private ISpeedDegrader _degraderListener;
+        private IScoreAdder _scoreListener;
 
         private float _pulsingValue = 2.1f;
         private float _pulsingMin = 2.0f;
@@ -27,10 +29,10 @@ namespace RollABall
 
         #region ClassLifeCycles
 
-        internal InteractableController(List<GameObject> providers, List<IUpgradable> upgradables)
+        internal InteractableController(InteractableModel model)
         {
-            _subInteractableProviders = providers;
-            DefineSubcontrollers(upgradables);
+            _interactableModel = model;
+            DefineSubcontrollers(_interactableModel.Upgradables);
         }
 
         #endregion
@@ -40,7 +42,7 @@ namespace RollABall
 
         public void UpdateTick(float deltaTime)
         {
-            foreach (var item in _subInteractableProviders)
+            foreach (var item in _interactableModel.Providers)
             {
                 _pulsingValue = item.transform.localScale.x;
                 if (_isGrow)
@@ -68,56 +70,61 @@ namespace RollABall
 
         internal void SubsrcibeView(IInteractable view)
         {
-            _improverViews.Add(view);
-            switch (view)
-            {
-                case IImprover improver:
-                    _improverListener = improver;
-                    _improverListener.TriggerOnEnter += ImproveTriggerEnter;
-                    _improverListener.DestroyProvider += UnsubsribeView;
-                    break;
-                case IDegrader degrader:
-                    _degraderListener = degrader;
-                    _degraderListener.TriggerOnEnter += ImproveTriggerEnter;
-                    _degraderListener.DestroyProvider += UnsubsribeView;
-                    break;
-                default:
-                    break;
-            }
+            _interactableViews.Add(view);
 
+            if (view is ISpeedImprover improver)
+            {
+                _improverListener = improver;
+                _improverListener.SpeedImprove += ChangeSpeed;
+                _improverListener.DestroyProvider += UnsubsribeView;
+            }
+            if (view is ISpeedDegrader degrader)
+            {
+                _degraderListener = degrader;
+                _degraderListener.SpeedDegrade += ChangeSpeed;
+                _degraderListener.DestroyProvider += UnsubsribeView;
+            }
+            if (view is IScoreAdder adder)
+            {
+                _scoreListener = adder;
+                _scoreListener.AddScore += ChangeScore;
+                _scoreListener.DestroyProvider += UnsubsribeView;
+            }
         }
 
         internal void UnsubsribeView(GameObject provider)
         {
-            switch (provider.GetComponent<IInteractable>())
-            {
-                case IImprover improver:
-                    improver.TriggerOnEnter -= ImproveTriggerEnter;
-                    improver.DestroyProvider -= UnsubsribeView;
-                    _improverViews.Remove(improver);
-                    _subInteractableProviders.Remove(provider);
-                    break;
-                case IDegrader degrader:
-                    degrader.TriggerOnEnter -= ImproveTriggerEnter;
-                    degrader.DestroyProvider -= UnsubsribeView;
-                    _improverViews.Remove(degrader);
-                    _subInteractableProviders.Remove(provider);
-                    break;
-                default:
-                    break;
-            }
+            var component = provider.GetComponent<IInteractable>();
 
+            if (component is ISpeedImprover improver)
+            {
+                improver.SpeedImprove -= ChangeSpeed;
+                improver.DestroyProvider -= UnsubsribeView;
+                _interactableViews.Remove(improver);
+                _interactableModel.Providers.Remove(provider);
+            }
+            if (component is ISpeedDegrader degrader)
+            {
+                degrader.SpeedDegrade -= ChangeSpeed;
+                degrader.DestroyProvider -= UnsubsribeView;
+                _interactableViews.Remove(degrader);
+                _interactableModel.Providers.Remove(provider);
+            }
+            if (component is IScoreAdder adder)
+            {
+                adder.AddScore -= ChangeScore;
+                adder.DestroyProvider -= UnsubsribeView;
+            }
         }
 
-        private void ImproveTriggerEnter(Collider obj, float property)
+        private void ChangeSpeed(Collider obj, float property)
         {
             switch (obj.tag)
             {
                 case "Player":
                     foreach (var improvable in _improvableControllers)
                     {
-                        var target = improvable;
-                        target.ImproveSpeed(property);
+                        improvable.ImproveSpeed(property);
                     }                    
                     break;
                 default:
@@ -125,6 +132,10 @@ namespace RollABall
             }
         }
 
+        private void ChangeScore(int scorePoints)
+        {
+            _interactableModel.GameProcess.ChangeScore(scorePoints);
+        }
 
         private void DefineSubcontrollers<T>(List<T> controllers) where T : IUpgradable
         {

@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
-using static UnityEngine.Debug;
+using UnityEngine.SceneManagement;
 
 
 namespace RollABall
 {
-    internal sealed class GameController : MonoBehaviour
+    internal sealed class GameController : MonoBehaviour, IControllable
     {
         #region Fields
 
@@ -23,7 +22,7 @@ namespace RollABall
         private void Start()
         {
         	_controllers = new Controllers();
-            new InitializeController(_controllers, _gameData);
+            new InitializeController(_controllers, _gameData, this);
             _controllers.Initialization();
         }
 
@@ -40,7 +39,25 @@ namespace RollABall
 
         private void OnDestroy()
         {
-        	//_controllers.Cleanup(); //realize Cleanup Interface and methods in Controllers
+        	_controllers.Cleanup();
+        }
+
+        internal void ListenToRestart(IInputProxy input)
+        {
+            input.RestartOnPressed += Restart;
+        }
+
+        private void Restart(bool value)
+        {
+            if (value)
+            {
+                Scene currentScene = SceneManager.GetActiveScene();
+                SceneManager.LoadScene(0);
+                SceneManager.UnloadSceneAsync(currentScene);
+                Resources.UnloadUnusedAssets();
+                gameObject.AddComponent<Destroyer>();
+                Destroy(this);
+            }
         }
 
         #endregion
