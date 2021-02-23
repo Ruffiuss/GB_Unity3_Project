@@ -51,7 +51,9 @@ namespace RollABall
 
         private void OnEnable()
         {
-            _interactableDataDictionary = new Dictionary<InteractableType, IInteractableData>() { { InteractableType.Buff, _interactableInfo.Buff }, { InteractableType.Debuff, _interactableInfo.Debuff } };
+            _interactableDataDictionary = new Dictionary<InteractableType, IInteractableData>() {
+                { InteractableType.Buff, _interactableInfo.Buff }, { InteractableType.Debuff, _interactableInfo.Debuff } 
+            };
         }
 
         #endregion

@@ -11,7 +11,6 @@ namespace RollABall
 
         private InteractableModel _interactableModel;
 
-        private List<IInteractable> _interactableViews = new List<IInteractable>();
         private List<IUpgradable> _upgradableControllers = new List<IUpgradable>();
         private ISpeedChanger _speedChange;
         private IScoreChanger _scoreChange;
@@ -30,6 +29,7 @@ namespace RollABall
         internal InteractableController(InteractableModel model)
         {
             _interactableModel = model;
+            SubsrcibeView(_interactableModel.Interactables.GetKeyList());
             DefineSubcontrollers(_interactableModel.Upgradables);
         }
 
@@ -66,21 +66,22 @@ namespace RollABall
             }
         }
 
-        internal void SubsrcibeView(IInteractable view)
+        private void SubsrcibeView(List<IInteractable> views)
         {
-            _interactableViews.Add(view);
-
-            if (view is ISpeedChanger improver)
+            foreach (var view in views)
             {
-                _speedChange = improver;
-                _speedChange.SpeedChange += ChangeSpeed;
-                _speedChange.DestroyProvider += UnsubsribeView;
-            }
-            if (view is IScoreChanger adder)
-            {
-                _scoreChange = adder;
-                _scoreChange.AddScore += ChangeScore;
-                _scoreChange.DestroyProvider += UnsubsribeView;
+                if (view is ISpeedChanger improver)
+                {
+                    _speedChange = improver;
+                    _speedChange.SpeedChange += ChangeSpeed;
+                    _speedChange.DestroyProvider += UnsubsribeView;
+                }
+                if (view is IScoreChanger adder)
+                {
+                    _scoreChange = adder;
+                    _scoreChange.AddScore += ChangeScore;
+                    _scoreChange.DestroyProvider += UnsubsribeView;
+                }
             }
         }
 
@@ -92,13 +93,15 @@ namespace RollABall
             {
                 improver.SpeedChange -= ChangeSpeed;
                 improver.DestroyProvider -= UnsubsribeView;
-                _interactableViews.Remove(improver);
+                _interactableModel.RemoveInteractableProvider(improver, provider);
                 _interactableModel.Providers.Remove(provider);
             }
             if (component is IScoreChanger adder)
             {
                 adder.AddScore -= ChangeScore;
                 adder.DestroyProvider -= UnsubsribeView;
+                _interactableModel.RemoveInteractableProvider(adder, provider);
+                _interactableModel.Providers.Remove(provider);
             }
         }
 

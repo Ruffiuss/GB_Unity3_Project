@@ -40,7 +40,6 @@ namespace RollABall
             SpawnInteractableElements(interactableModel);
 
             _interactableController = new InteractableController(interactableModel);
-            SetViewListeners(interactableModel.Providers);
 
             interactableModel.SubscribeEvent(this);
         }
@@ -111,14 +110,6 @@ namespace RollABall
                         _spawnQueue.Dequeue();
                     }
                 }
-            }
-        }
-
-        private void SetViewListeners(List<GameObject> subInteractableProviders)
-        {
-            foreach (var item in subInteractableProviders)
-            {
-                _interactableController.SubsrcibeView(item.GetComponent<IInteractable>());
             }
         }
 

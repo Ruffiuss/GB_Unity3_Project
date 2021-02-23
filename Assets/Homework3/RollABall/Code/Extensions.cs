@@ -27,6 +27,16 @@ namespace RollABall
             return values;
         }
 
+        public static List<TKey> GetKeyList<TKey, TValue>(this Dictionary<TKey, TValue> self)
+        {
+            List<TKey> values = new List<TKey>();
+            foreach (var k in self.Keys)
+            {
+                values.Add(k);
+            }
+            return values;
+        }
+
         #endregion
     }
 }
