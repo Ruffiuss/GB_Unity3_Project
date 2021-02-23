@@ -12,11 +12,9 @@ namespace RollABall
         private InteractableModel _interactableModel;
 
         private List<IInteractable> _interactableViews = new List<IInteractable>();
-        private List<IImprovable> _improvableControllers = new List<IImprovable>();
-        private List<IDegradable> _degradableControllers = new List<IDegradable>();
-        private ISpeedImprover _improverListener;
-        private ISpeedDegrader _degraderListener;
-        private IScoreAdder _scoreListener;
+        private List<IUpgradable> _upgradableControllers = new List<IUpgradable>();
+        private ISpeedChanger _speedChange;
+        private IScoreChanger _scoreChange;
 
         private float _pulsingValue = 2.1f;
         private float _pulsingMin = 2.0f;
@@ -72,23 +70,17 @@ namespace RollABall
         {
             _interactableViews.Add(view);
 
-            if (view is ISpeedImprover improver)
+            if (view is ISpeedChanger improver)
             {
-                _improverListener = improver;
-                _improverListener.SpeedImprove += ChangeSpeed;
-                _improverListener.DestroyProvider += UnsubsribeView;
+                _speedChange = improver;
+                _speedChange.SpeedChange += ChangeSpeed;
+                _speedChange.DestroyProvider += UnsubsribeView;
             }
-            if (view is ISpeedDegrader degrader)
+            if (view is IScoreChanger adder)
             {
-                _degraderListener = degrader;
-                _degraderListener.SpeedDegrade += ChangeSpeed;
-                _degraderListener.DestroyProvider += UnsubsribeView;
-            }
-            if (view is IScoreAdder adder)
-            {
-                _scoreListener = adder;
-                _scoreListener.AddScore += ChangeScore;
-                _scoreListener.DestroyProvider += UnsubsribeView;
+                _scoreChange = adder;
+                _scoreChange.AddScore += ChangeScore;
+                _scoreChange.DestroyProvider += UnsubsribeView;
             }
         }
 
@@ -96,35 +88,28 @@ namespace RollABall
         {
             var component = provider.GetComponent<IInteractable>();
 
-            if (component is ISpeedImprover improver)
+            if (component is ISpeedChanger improver)
             {
-                improver.SpeedImprove -= ChangeSpeed;
+                improver.SpeedChange -= ChangeSpeed;
                 improver.DestroyProvider -= UnsubsribeView;
                 _interactableViews.Remove(improver);
                 _interactableModel.Providers.Remove(provider);
             }
-            if (component is ISpeedDegrader degrader)
-            {
-                degrader.SpeedDegrade -= ChangeSpeed;
-                degrader.DestroyProvider -= UnsubsribeView;
-                _interactableViews.Remove(degrader);
-                _interactableModel.Providers.Remove(provider);
-            }
-            if (component is IScoreAdder adder)
+            if (component is IScoreChanger adder)
             {
                 adder.AddScore -= ChangeScore;
                 adder.DestroyProvider -= UnsubsribeView;
             }
         }
 
-        private void ChangeSpeed(Collider obj, float property)
+        private void ChangeSpeed(Collider obj, IInteractable caller)
         {
             switch (obj.tag)
             {
                 case "Player":
-                    foreach (var improvable in _improvableControllers)
+                    foreach (var improvable in _upgradableControllers)
                     {
-                        improvable.ImproveSpeed(property);
+                        improvable.ChangeSpeed(_interactableModel.GetProperty(caller, 0));
                     }                    
                     break;
                 default:
@@ -132,26 +117,19 @@ namespace RollABall
             }
         }
 
-        private void ChangeScore(int scorePoints)
+        private void ChangeScore(bool isTrigger, IInteractable caller)
         {
-            _interactableModel.GameProcess.ChangeScore(scorePoints);
+            if (isTrigger)
+            {
+                _interactableModel.GameProcess.ChangeScore((int)_interactableModel.GetProperty(caller, 1));
+            }
         }
 
         private void DefineSubcontrollers<T>(List<T> controllers) where T : IUpgradable
         {
             foreach(var controller in controllers)
             {
-                switch(controller)
-                {
-                    case IImprovable improvable:
-                        _improvableControllers.Add(improvable);
-                        break;
-                    case IDegradable degradable:
-                        _degradableControllers.Add(degradable);
-                        break;
-                    default:
-                        break;
-                }
+                _upgradableControllers.Add(controller);
             }
         }
 

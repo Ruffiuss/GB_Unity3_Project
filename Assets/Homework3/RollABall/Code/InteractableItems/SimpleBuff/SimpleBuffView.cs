@@ -4,16 +4,13 @@ using UnityEngine;
 
 namespace RollABall
 {
-    public sealed class SimpleBuffView : MonoBehaviour, IInteractableView, ISpeedImprover, IScoreAdder
+    public sealed class SimpleBuffView : MonoBehaviour, IInteractableView, ISpeedChanger, IScoreChanger
     {
         #region Fields
 
-        public event Action<Collider, float> SpeedImprove = delegate(Collider collider, float speedBuff) { };
+        public event Action<Collider, IInteractable> SpeedChange = delegate(Collider collider, IInteractable caller) { };
         public event Action<GameObject> DestroyProvider = delegate(GameObject provider) { };
-        public event Action<int> AddScore = delegate(int scorePoints) { };
-
-        private float _speedBuff;
-        private int _scorePoints;
+        public event Action<bool, IInteractable> AddScore = delegate (bool isTrigger, IInteractable caller) { };
 
         #endregion
 
@@ -22,29 +19,14 @@ namespace RollABall
 
         public void OnTriggerEnter(Collider other)
         {
-            SpeedImprove.Invoke(other, _speedBuff);
-            AddScore.Invoke(_scorePoints);
+            SpeedChange.Invoke(other, this);
+            AddScore.Invoke(true, this);
             Destroy(gameObject);
         }
 
         public void OnDestroy()
         {
             DestroyProvider.Invoke(gameObject);
-        }
-
-        #endregion
-
-
-        #region Methods
-
-        public void DefineSpeedProperty(float speedProp)
-        {
-            _speedBuff = speedProp;
-        }
-
-        public void DefineScoreProperty(int scoreProp)
-        {
-            _scorePoints = scoreProp;
         }
 
         #endregion

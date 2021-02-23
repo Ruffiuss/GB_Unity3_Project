@@ -8,7 +8,7 @@ namespace RollABall
     {
         #region Properties
 
-        event Action<GameObject> DestroyProvider;
+        //event Action<GameObject> DestroyProvider;
 
         #endregion
     }
