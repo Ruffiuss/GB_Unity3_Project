@@ -27,6 +27,6 @@ namespace RollABall
         public const int SCORE_TO_WIN = 2;
 
         public const string SAVES_FOLDER_NAME = "Saves";
-        public const string SAVES_FILE_NAME = "Save.mar";
+        public const string SAVES_FILE_NAME = "Save.save";
     }
 }

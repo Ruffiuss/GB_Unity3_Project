@@ -35,7 +35,7 @@ namespace RollABall
             }
             else
             {
-                data = new BinarySerializationData<SavedData>();
+                data = new JsonData<SavedData>();
             }
         }
 
