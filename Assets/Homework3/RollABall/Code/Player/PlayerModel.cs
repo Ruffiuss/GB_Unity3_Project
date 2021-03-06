@@ -62,7 +62,7 @@ namespace RollABall
 
         internal void ImproveSpeed(float value)
         {
-            _playerDataCopy._speed = _playerDataCopy._speed < 5000 ? _playerDataCopy._speed + value : _playerDataCopy._speed;
+            _playerDataCopy._speed = _playerDataCopy._speed < GlobalProperties.MAX_BUFFED_PLAYER_SPEED ? _playerDataCopy._speed + value : _playerDataCopy._speed;
         }
 
         #endregion

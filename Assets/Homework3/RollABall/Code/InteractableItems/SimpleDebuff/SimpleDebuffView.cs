@@ -4,14 +4,12 @@ using UnityEngine;
 
 namespace RollABall
 {
-    public sealed class SimpleDebuffView : MonoBehaviour, IInteractableView, ISpeedDegrader
+    public sealed class SimpleDebuffView : MonoBehaviour, IInteractableView, ISpeedChanger
     {
         #region Fields
 
-        public event Action<Collider, float> SpeedDegrade = delegate (Collider collider, float speddDebuff) { };
+        public event Action<Collider, IInteractable> SpeedChange = delegate (Collider collider, IInteractable caller) { };
         public event Action<GameObject> DestroyProvider = delegate (GameObject provider) { };
-
-        private float _speedDebuff;
 
         #endregion
 
@@ -20,23 +18,13 @@ namespace RollABall
 
         public void OnTriggerEnter(Collider other)
         {
-            SpeedDegrade.Invoke(other, _speedDebuff);
+            SpeedChange.Invoke(other, this);
             Destroy(gameObject);
         }
 
         public void OnDestroy()
         {
             DestroyProvider.Invoke(gameObject);
-        }
-
-        #endregion
-
-
-        #region Methods
-
-        public void DefineSpeedProperty(float speedProp)
-        {
-            _speedDebuff = speedProp;
         }
 
         #endregion

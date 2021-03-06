@@ -12,29 +12,68 @@ namespace RollABall
         #region Fields
 
         [Serializable]
-        private struct InteractableInfo
+        internal struct InteractableInfo
         {
-            public InteractableType Type;
-            public GameObject Provider;
-            public float[] Properties;
+            [SerializeField]internal SimpleBuffData Buff;
+            [SerializeField]internal SimpleDebuffData Debuff;
         }
 
-        [SerializeField] private List<InteractableInfo> _interactableInfos;
+        [Serializable]
+        internal class SimpleBuffData : IInteractableData
+        {
+            [SerializeField] private GameObject _provider;
+            [SerializeField, Range(GlobalProperties.MIN_SPEEDBUFF, GlobalProperties.MAX_SPEEDBUFF)] private float _speedBuff;
+            [SerializeField, Range(1, 10)] private float _scoreBuff;
+            private byte _checker;
+            public GameObject Provider { get => _provider; }
+            public float[] Property 
+            {
+                get { return new float[2] { _speedBuff, _scoreBuff }; }
+            }
+        }
+
+        [Serializable]
+        internal class SimpleDebuffData : IInteractableData
+        {
+            [SerializeField] private GameObject _provider;
+            [SerializeField, Range(GlobalProperties.MAX_SPEEDBUFF * -1, GlobalProperties.MIN_SPEEDBUFF * -1)] private float _speedDebuff;
+            public GameObject Provider { get => _provider; }
+            public float[] Property { get => new float[1] { _speedDebuff }; }
+        }
+
+        [SerializeField] internal InteractableInfo _interactableInfo;
+        internal Dictionary<InteractableType, IInteractableData> _interactableDataDictionary;
+
+        #endregion
+
+
+        #region UnityMethods
+
+        private void OnEnable()
+        {
+            _interactableDataDictionary = new Dictionary<InteractableType, IInteractableData>() {
+                { InteractableType.Buff, _interactableInfo.Buff }, { InteractableType.Debuff, _interactableInfo.Debuff } 
+            };
+        }
 
         #endregion
 
 
         #region Methods
 
-        public (GameObject provider, float[] properties) GetData(InteractableType type)
+        internal int GetDataCount()
         {
-            var interactableInfo = _interactableInfos.First(info => info.Type == type);
-            return (interactableInfo.Provider, interactableInfo.Properties);
+            return _interactableDataDictionary.Count;
         }
 
-        public int GetDataCount()
+        internal IInteractableData GetTypeData(InteractableType type)
         {
-            return _interactableInfos.Count;
+            return _interactableDataDictionary[type];
+        }
+
+        internal List<IInteractableData> GetData()
+        {
+            return _interactableDataDictionary.GetValueList();
         }
 
         #endregion

@@ -16,6 +16,8 @@
             controllers.Add(new MoveController(inputInitialized.GetInput(), playerInitialized.GetPlayerController()));
             gameController.ListenToRestart(inputInitialized.GetInput());
 
+            var saverInitialized = new SaveController(inputInitialized.GetInput(), playerInitialized.GetPlayerController());
+
             var interactableInitialized = new InteractableInitializator(levelInitialized.GetInteractableSpawns(), controllers.GetUpgradables(), controllers.GetGameProcessController(), gameData.Interactable);
             controllers.Add(interactableInitialized.GetController());
 

@@ -3,7 +3,7 @@
 
 namespace RollABall
 {
-    internal sealed class PlayerController : IMovable, IDegradable, IImprovable
+    internal sealed class PlayerController : IMovable, IUpgradable, ISaveable<PlayerController>
     {
         #region Fields
 
@@ -17,6 +17,8 @@ namespace RollABall
         public Rigidbody Rigidbody => _playerModel.Rigidbody;
 
         public float Speed => _playerModel.Speed;
+
+        public PlayerController Controller => this;
 
         #endregion
 
@@ -33,7 +35,7 @@ namespace RollABall
 
         #region Methods
 
-        public void ImproveSpeed(float value)
+        public void ChangeSpeed(float value)
         {
             _playerModel.ImproveSpeed(value);
         }
